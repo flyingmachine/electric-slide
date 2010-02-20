@@ -144,7 +144,8 @@ jQuery.fn.electricSlide = function(options){
       this.willLoseFocus   = settings.slideWillLoseFocus;
       this.didLoseFocus    = settings.slideDidLoseFocus;
     })
-
+    
+    // setup dimensions
     function setSlideContainerHeight() {
       slideContainer.height(maxHeight + maxTopMargin + maxBottomMargin + maxTopPadding + maxBottomPadding + maxTopBorder + maxBottomBorder)
     }
@@ -159,7 +160,8 @@ jQuery.fn.electricSlide = function(options){
       if(!newSlide) {
         return false;
       }
-
+      
+      // give the opportunity to prevent the slide from changing
       if(!oldSlide.shouldLoseFocus()) {
         return false;
       }
