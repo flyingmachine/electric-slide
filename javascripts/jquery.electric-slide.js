@@ -107,16 +107,20 @@ $.fn.electricSlide = function(options){
     function insertHeader(i, slideElem){
       var header = $("<div class='slide-header'></div>'")
 
-      var nextElement = $(settings.nextHtml)
-      if(titles[i+1]) nextElement.text($)
-      nextElement.click(showNextSlide)
-
-      var previousElement = $(settings.previousHtml)
-      previousElement.click(showPreviousSlide)
-
       // don't show next/previous if there is no next/previous
-      if(i > 0) header.append(previousElement)
-      if(i < maxSlidePosition()) header.append(nextElement);
+      if(i > 0) {
+        var previousElement = $(settings.previousHtml)
+        if(titles[i-1]) previousElement.text($(titles[i-1]).text())
+        previousElement.click(showPreviousSlide)
+        header.append(previousElement)
+      }
+      
+      if(i < maxSlidePosition()) {
+        var nextElement = $(settings.nextHtml)
+        if(titles[i+1]) nextElement.text($(titles[i+1]).text())
+        nextElement.click(showNextSlide)
+        header.append(nextElement);
+      }
 
       $(slideElem).prepend(header)
     }
