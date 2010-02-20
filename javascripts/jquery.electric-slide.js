@@ -206,7 +206,3 @@ jQuery.fn.electricSlide = function(options){
     return this;
   });
 };
-
-$(function(){
-  $("#slides").electricSlide();
-})
