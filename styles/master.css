@@ -12,22 +12,10 @@ http://github.com/nakajima/slidedown/blob/master/templates/stylesheets/slides.cs
   overflow: hidden;
 }
  
-#track > div {
+#track .slide {
   float: left;
 }
  
-#track > div .content {
-  margin: 0 0.6em;
-}
- 
-#track > div .content h1 {
-  margin-bottom: 0.1em;
-}
- 
-#track > div .content h1 strong {
-  text-decoration: underline;
-}
-
 /* 
   Very weird: for some reason when jquery is computing heights
   it doesn't correctly accommodate the height of the interior p element

@@ -188,7 +188,7 @@ $.fn.electricSlide = function(options){
       if(!newSlide.shouldGetFocus(oldSlidePosition, newSlidePosition)) {
         return false;
       }
-      oldSlide.willGetFocus(oldSlidePosition, newSlidePosition);
+      newSlide.willGetFocus(oldSlidePosition, newSlidePosition);
       newSlide.show(oldSlidePosition, newSlidePosition);
       newSlide.didGetFocus(oldSlidePosition, newSlidePosition);
       currentSlidePosition = newSlidePosition;
