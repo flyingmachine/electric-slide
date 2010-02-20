@@ -1,4 +1,6 @@
-jQuery.fn.electricSlide = function(options){
+(function($) {
+
+$.fn.electricSlide = function(options){
   /*
     In all of the functions defined in settings,
     "this" refers to the slide element.
@@ -20,8 +22,8 @@ jQuery.fn.electricSlide = function(options){
     previousHtml             : "<a href='#' class='slide-navigation previous'>previous</a>",
 
     // show/hide 
-    showFunction             : function(){jQuery(this).slideDown()},
-    hideFunction             : function(){jQuery(this).hide()},
+    showFunction             : function(){$(this).slideDown()},
+    hideFunction             : function(){$(this).hide()},
 
     // callbacks
     slideShouldGetFocus      : trueSlideFunction, // allows you to prevent the slide from losing focus; not sure if "getFocus" should be "hide"
@@ -32,14 +34,14 @@ jQuery.fn.electricSlide = function(options){
     slideDidLoseFocus        : trueSlideFunction
   }
 
-  jQuery.extend(settings, options)
+  $.extend(settings, options)
   
   this.each(function(){
     var slideContext = this;
     var slideContainer = $(this);
-    var slides = jQuery(settings.slideSelector, slideContainer);
+    var slides = $(settings.slideSelector, slideContainer);
     var currentSlidePosition = 0;
-    var titles = jQuery(settings.slideSelector + " > " + settings.titleSelector);
+    var titles = $(settings.slideSelector + " > " + settings.titleSelector);
     
     // Set slide container height
     var maxHeight = 0;
@@ -51,11 +53,11 @@ jQuery.fn.electricSlide = function(options){
     var maxBottomBorder = 0;
 
     function setMaxDimensions(slideElem) {
-      var height = jQuery(slideElem).height();
+      var height = $(slideElem).height();
       if(height > maxHeight) maxHeight = height;
 
       // margins
-      var margins = jQuery(slideElem).margin();
+      var margins = $(slideElem).margin();
 
       var topMargin = margins.top;
       if(topMargin > maxTopMargin) maxTopMargin = topMargin;
@@ -64,7 +66,7 @@ jQuery.fn.electricSlide = function(options){
       if(bottomMargin > maxBottomMargin) maxBottomMargin = bottomMargin;
 
       // padding
-      var padding = jQuery(slideElem).padding();
+      var padding = $(slideElem).padding();
 
       var topPadding = padding.top;
       if(topPadding > maxTopPadding) maxTopPadding = topPadding;
@@ -74,7 +76,7 @@ jQuery.fn.electricSlide = function(options){
 
 
       // border
-      var border = jQuery(slideElem).border();
+      var border = $(slideElem).border();
 
       var topBorder = border.top;
       if(topBorder > maxTopBorder) maxTopBorder = topBorder;
@@ -92,31 +94,31 @@ jQuery.fn.electricSlide = function(options){
       maxTopBorder = 0;
       maxBottomBorder = 0;
       slides.each(function(){
-        jQuery(this).width(slideWidth());
+        $(this).width(slideWidth());
         setMaxDimensions(this);
         setSlideContainerHeight();
       })
     }
 
     function slideWidth() {
-      return jQuery("#slides").width()
+      return $("#slides").width()
     }
 
     function insertHeader(i, slideElem){
-      var header = jQuery("<div class='slide-header'></div>'")
+      var header = $("<div class='slide-header'></div>'")
 
-      var nextElement = jQuery(settings.nextHtml)
-      if(titles[i+1]) nextElement.text(jQuery)
+      var nextElement = $(settings.nextHtml)
+      if(titles[i+1]) nextElement.text($)
       nextElement.click(showNextSlide)
 
-      var previousElement = jQuery(settings.previousHtml)
+      var previousElement = $(settings.previousHtml)
       previousElement.click(showPreviousSlide)
 
       // don't show next/previous if there is no next/previous
       if(i > 0) header.append(previousElement)
       if(i < maxSlidePosition()) header.append(nextElement);
 
-      jQuery(slideElem).prepend(header)
+      $(slideElem).prepend(header)
     }
 
     function currentSlide() {
@@ -130,11 +132,11 @@ jQuery.fn.electricSlide = function(options){
     // setup slides
     slides.each(function(i){
       if(settings.shouldInsertHeader) insertHeader(i, this);
-      jQuery(this).width(slideWidth());
+      $(this).width(slideWidth());
       setMaxDimensions(this);
 
       if(i == 0) {
-        jQuery(this).show();
+        $(this).show();
       }
 
       this.slideContext    = slideContext;
@@ -153,10 +155,11 @@ jQuery.fn.electricSlide = function(options){
       slideContainer.height(maxHeight + maxTopMargin + maxBottomMargin + maxTopPadding + maxBottomPadding + maxTopBorder + maxBottomBorder)
     }
     setSlideContainerHeight();
-    jQuery(window).resize(resetDimensions)
+    $(window).resize(resetDimensions)
 
     // Navigation
     function showSlide(newSlidePosition) {
+      var oldSlidePosition = currentSlidePosition;
       var oldSlide = slides[currentSlidePosition];
       var newSlide = slides[newSlidePosition];
 
@@ -211,3 +214,5 @@ jQuery.fn.electricSlide = function(options){
     return this;
   });
 };
+
+})(jQuery);
