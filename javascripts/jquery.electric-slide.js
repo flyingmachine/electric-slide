@@ -15,11 +15,14 @@ $.fn.electricSlide = function(options){
   var settings = {
     slideSelector            : ".slide",
 
-    // header
+    // header/navigation
     shouldInsertHeader       : true,
     titleSelector            : "h3",
-    nextHtml                 : "<a href='#' class='slide-navigation next'>next</a>",
+    nextHtml                 : "<a href='#' class='slide-navigation next'>next</a>", // "next" text is replaced with title if there is one
     previousHtml             : "<a href='#' class='slide-navigation previous'>previous</a>",
+    
+    buildTableOfContents     : true,
+    tocContainerSelector     : "#table-of-contents",
 
     // show/hide 
     showFunction             : function(){$(this).slideDown()},
@@ -42,6 +45,8 @@ $.fn.electricSlide = function(options){
     var slides = $(settings.slideSelector, slideContainer);
     var currentSlidePosition = 0;
     var titles = $(settings.slideSelector + " > " + settings.titleSelector);
+    var tocContainer; // table of contents container
+    var tableOfContents;
     
     // Set slide container height
     var maxHeight = 0;
@@ -110,14 +115,14 @@ $.fn.electricSlide = function(options){
       // don't show next/previous if there is no next/previous
       if(i > 0) {
         var previousElement = $(settings.previousHtml)
-        if(titles[i-1]) previousElement.text($(titles[i-1]).text())
+        if(titles[i-1]) previousElement.text($(titles[i-1]).text()) // replace link text with title of prev slide
         previousElement.click(showPreviousSlide)
         header.append(previousElement)
       }
       
       if(i < maxSlidePosition()) {
         var nextElement = $(settings.nextHtml)
-        if(titles[i+1]) nextElement.text($(titles[i+1]).text())
+        if(titles[i+1]) nextElement.text($(titles[i+1]).text()) // replace link text with title of next slide
         nextElement.click(showNextSlide)
         header.append(nextElement);
       }
@@ -187,6 +192,9 @@ $.fn.electricSlide = function(options){
       newSlide.show(oldSlidePosition, newSlidePosition);
       newSlide.didGetFocus(oldSlidePosition, newSlidePosition);
       currentSlidePosition = newSlidePosition;
+      
+      // highlight toc item if applicable
+      activateCurrectTocLine();
     }
 
     function showNextSlide() {
@@ -214,9 +222,33 @@ $.fn.electricSlide = function(options){
       }
     }
     slideContainer.dblclick(clickMove)
-
-    return this;
-  });
+    
+    // table of contents
+    if(settings.buildTableOfContents) {
+      tocContainer = $(settings.tocContainerSelector)
+      
+      tableOfContents = $("<ol class='slide-toc'></ol>")
+      tableOfContents.lines = [];
+      
+      titles.each(function(i){
+        line = $("<li><a href='#slide-" + i + "'>" + $(this).text() + "</a></li>")
+        $("a", line).click(function(){showSlide(i)}) // could optimize this
+        tableOfContents.append(line)
+      })
+      
+      tocContainer.append(tableOfContents);
+      
+      function activateCurrectTocLine() {
+        tableOfContents.children("li.active").removeClass("active")
+        tableOfContents.children("li:eq(" + i + ")").addClass("active")
+      }
+    } else {
+      function activateCurrectTocLine() { 
+      }
+    }
+    
+  }); // end this.each
+  return this;
 };
 
 })(jQuery);
