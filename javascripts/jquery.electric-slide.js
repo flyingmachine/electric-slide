@@ -7,14 +7,15 @@ jQuery.fn.electricSlide = function(options){
     which you can use to refer to anything defined here.
   */
   // dummy function; is this necessary?
-  function trueSlideFunction(slide){
+  function trueSlideFunction(oldSlidePosition, newSlidePosition){
     return true;
   }
   var settings = {
-    slideIdentifier          : ".slide",
+    slideSelector            : ".slide",
 
     // header
     shouldInsertHeader       : true,
+    titleSelector            : "h3",
     nextHtml                 : "<a href='#' class='slide-navigation next'>next</a>",
     previousHtml             : "<a href='#' class='slide-navigation previous'>previous</a>",
 
@@ -36,9 +37,10 @@ jQuery.fn.electricSlide = function(options){
   this.each(function(){
     var slideContext = this;
     var slideContainer = $(this);
-    var slides = jQuery(settings.slideIdentifier, slideContainer);
+    var slides = jQuery(settings.slideSelector, slideContainer);
     var currentSlidePosition = 0;
-
+    var titles = jQuery(settings.slideSelector + " > " + settings.titleSelector);
+    
     // Set slide container height
     var maxHeight = 0;
     var maxTopMargin = 0;
@@ -104,6 +106,7 @@ jQuery.fn.electricSlide = function(options){
       var header = jQuery("<div class='slide-header'></div>'")
 
       var nextElement = jQuery(settings.nextHtml)
+      if(titles[i+1]) nextElement.text(jQuery)
       nextElement.click(showNextSlide)
 
       var previousElement = jQuery(settings.previousHtml)
@@ -162,20 +165,20 @@ jQuery.fn.electricSlide = function(options){
       }
       
       // give the opportunity to prevent the slide from changing
-      if(!oldSlide.shouldLoseFocus()) {
+      if(!oldSlide.shouldLoseFocus(oldSlidePosition, newSlidePosition)) {
         return false;
       }
-      oldSlide.willLoseFocus();
-      oldSlide.hide();
-      oldSlide.didLoseFocus();
+      oldSlide.willLoseFocus(oldSlidePosition, newSlidePosition);
+      oldSlide.hide(oldSlidePosition, newSlidePosition);
+      oldSlide.didLoseFocus(oldSlidePosition, newSlidePosition);
 
       // should I really be doing this? will just leave the slideshow blank
-      if(!newSlide.shouldGetFocus()) {
+      if(!newSlide.shouldGetFocus(oldSlidePosition, newSlidePosition)) {
         return false;
       }
-      oldSlide.willGetFocus();
-      newSlide.show();
-      newSlide.didGetFocus();
+      oldSlide.willGetFocus(oldSlidePosition, newSlidePosition);
+      newSlide.show(oldSlidePosition, newSlidePosition);
+      newSlide.didGetFocus(oldSlidePosition, newSlidePosition);
       currentSlidePosition = newSlidePosition;
     }
 
