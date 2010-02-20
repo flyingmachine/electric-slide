@@ -30,7 +30,7 @@ $.fn.electricSlide = function(options){
 
     // callbacks
     slideShouldGetFocus      : trueSlideFunction, // allows you to prevent the slide from losing focus; not sure if "getFocus" should be "hide"
-    slideWillGetFocus        : trueSlideFunction, // setup the slide before it appears
+    slideWillGetFocus        : trueSlideFunction, // setup the slide before it appears.. or something
     slideDidGetFocus         : trueSlideFunction, // do stuff with the slide after it appears
     slideShouldLoseFocus     : trueSlideFunction,
     slideWillLoseFocus       : trueSlideFunction,
@@ -140,6 +140,8 @@ $.fn.electricSlide = function(options){
 
     // setup slides
     slides.each(function(i){
+      // insert an anchor
+      
       if(settings.shouldInsertHeader) insertHeader(i, this);
       $(this).width(slideWidth());
       setMaxDimensions(this);
@@ -172,7 +174,7 @@ $.fn.electricSlide = function(options){
       var oldSlide = slides[currentSlidePosition];
       var newSlide = slides[newSlidePosition];
 
-      if(!newSlide) {
+      if(!newSlide || oldSlidePosition == newSlidePosition) {
         return false;
       }
       
@@ -240,7 +242,7 @@ $.fn.electricSlide = function(options){
       
       function activateCurrectTocLine() {
         tableOfContents.children("li.active").removeClass("active")
-        tableOfContents.children("li:eq(" + i + ")").addClass("active")
+        tableOfContents.children("li:eq(" + currentSlidePosition + ")").addClass("active")
       }
     } else {
       function activateCurrectTocLine() { 

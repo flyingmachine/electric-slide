@@ -1,0 +1,29 @@
+h1. Electric Slide
+
+A jQuery "slideshow" plugin for arbitrary content.
+
+h2. Feature Highlights
+
+* Cocoa-ish callbacks for slide hiding/showing, allowing custom animations, slide validation (i.e. don't move from slide if a form on it is invalid)
+* _Optional_ Automatically-generated "next" and "previous" links
+* _Optional_ Automatically-generated table of contents, showing currently active slide
+* Very customizable
+
+h2. Get code
+
+* Full git repository: git://github.com/flyingmachine/electric-slide.git
+* Just the javascript: http://github.com/flyingmachine/electric-slide/raw/master/javascripts/jquery.electric-slide.js
+* _Note_: requires jquery.sizes.js: http://github.com/flyingmachine/electric-slide/blob/master/javascripts/jquery.sizes.js
+
+h2. Examples
+
+Need examples...
+
+h2. Usage
+
+Need to mention...
+
+* CSS assumptions
+* What happens when you call the electricSlide function
+
+  $("#slide-container").electricSlide();
