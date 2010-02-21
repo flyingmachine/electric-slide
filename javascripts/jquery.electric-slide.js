@@ -7,6 +7,8 @@ $.fn.electricSlide = function(options){
 
     Each slide element has a "slideContext" attribute
     which you can use to refer to anything defined here.
+    
+    The "slideContext" is just the the slide container element (I think)
   */
   // dummy function; is this necessary?
   function trueSlideFunction(oldSlidePosition, newSlidePosition){
@@ -18,7 +20,9 @@ $.fn.electricSlide = function(options){
     // header/navigation
     shouldInsertHeader       : true,
     titleSelector            : "h3",
-    nextHtml                 : "<a href='#' class='slide-navigation next'>next</a>", // "next" text is replaced with title if there is one
+    // "next/previous" text is replaced with title if there is one
+    // href is replaced with "#slide-i", where i is slide's position
+    nextHtml                 : "<a href='#' class='slide-navigation next'>next</a>",
     previousHtml             : "<a href='#' class='slide-navigation previous'>previous</a>",
     
     buildTableOfContents     : true,
@@ -143,6 +147,8 @@ $.fn.electricSlide = function(options){
         return false;
       }
       oldSlide.willLoseFocus(oldSlidePosition, newSlidePosition);
+      console.log("hiding: " + oldSlidePosition)
+      $(oldSlide).stop();
       oldSlide.hide(oldSlidePosition, newSlidePosition);
       oldSlide.didLoseFocus(oldSlidePosition, newSlidePosition);
 
@@ -241,7 +247,10 @@ $.fn.electricSlide = function(options){
     }
     slideContainer.dblclick(clickMove)
     
-    // table of contents
+    
+    /***
+     * Generate a TOC
+     */
     if(settings.buildTableOfContents) {
       tocContainer = $(settings.tocContainerSelector)
       
