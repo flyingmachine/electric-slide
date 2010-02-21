@@ -48,6 +48,10 @@ $.fn.electricSlide = function(options){
     var tocContainer; // table of contents container
     var tableOfContents;
     
+    
+    /***
+     * Height and width functions
+     */
     // Set slide container height
     var maxHeight = 0;
     var maxTopMargin = 0;
@@ -108,28 +112,14 @@ $.fn.electricSlide = function(options){
     function slideWidth() {
       return $("#slides").width()
     }
-
-    function insertHeader(i, slideElem){
-      var header = $("<div class='slide-header'></div>'")
-
-      // don't show next/previous if there is no next/previous
-      if(i > 0) {
-        var previousElement = $(settings.previousHtml)
-        if(titles[i-1]) previousElement.text($(titles[i-1]).text()) // replace link text with title of prev slide
-        previousElement.click(showPreviousSlide)
-        header.append(previousElement)
-      }
-      
-      if(i < maxSlidePosition()) {
-        var nextElement = $(settings.nextHtml)
-        if(titles[i+1]) nextElement.text($(titles[i+1]).text()) // replace link text with title of next slide
-        nextElement.click(showNextSlide)
-        header.append(nextElement);
-      }
-
-      $(slideElem).prepend(header)
+    
+    function setSlideContainerHeight() {
+      slideContainer.height(maxHeight + maxTopMargin + maxBottomMargin + maxTopPadding + maxBottomPadding + maxTopBorder + maxBottomBorder)
     }
 
+    /***
+     * Navigation functions
+     */
     function currentSlide() {
       return slides[currentSlidePosition][0];
     }
@@ -137,37 +127,7 @@ $.fn.electricSlide = function(options){
     function maxSlidePosition() {
       return slides.size() - 1;
     }
-
-    // setup slides
-    slides.each(function(i){
-      // insert an anchor
-      
-      if(settings.shouldInsertHeader) insertHeader(i, this);
-      $(this).width(slideWidth());
-      setMaxDimensions(this);
-
-      if(i == 0) {
-        $(this).show();
-      }
-
-      this.slideContext    = slideContext;
-      this.show = settings.showFunction;
-      this.hide = settings.hideFunction;
-      this.shouldGetFocus  = settings.slideShouldGetFocus;
-      this.willGetFocus    = settings.slideWillGetFocus;
-      this.didGetFocus     = settings.slideDidGetFocus;
-      this.shouldLoseFocus = settings.slideShouldLoseFocus;
-      this.willLoseFocus   = settings.slideWillLoseFocus;
-      this.didLoseFocus    = settings.slideDidLoseFocus;
-    })
     
-    // setup dimensions
-    function setSlideContainerHeight() {
-      slideContainer.height(maxHeight + maxTopMargin + maxBottomMargin + maxTopPadding + maxBottomPadding + maxTopBorder + maxBottomBorder)
-    }
-    setSlideContainerHeight();
-    $(window).resize(resetDimensions)
-
     // Navigation
     function showSlide(newSlidePosition) {
       var oldSlidePosition = currentSlidePosition;
@@ -196,7 +156,7 @@ $.fn.electricSlide = function(options){
       currentSlidePosition = newSlidePosition;
       
       // highlight toc item if applicable
-      activateCurrectTocLine();
+      activateCurrentTocLine();
     }
 
     function showNextSlide() {
@@ -212,6 +172,62 @@ $.fn.electricSlide = function(options){
         showSlide(newSlidePosition)
       }
     }
+    
+    /***
+     * Navigation HTML functions
+     */
+    function insertHeader(i, slideElem){
+      var header = $("<div class='slide-header'></div>'")
+
+      // don't show next/previous if there is no next/previous
+      if(i > 0) {
+        var previousElement = $(settings.previousHtml)
+        if(titles[i-1]) previousElement.text($(titles[i-1]).text()) // replace link text with title of prev slide
+        previousElement.click(showPreviousSlide)
+        header.append(previousElement)
+      }
+
+      if(i < maxSlidePosition()) {
+        var nextElement = $(settings.nextHtml)
+        if(titles[i+1]) nextElement.text($(titles[i+1]).text()) // replace link text with title of next slide
+        nextElement.click(showNextSlide)
+        header.append(nextElement);
+      }
+
+      $(slideElem).prepend(header)
+    }
+    
+    
+    /***
+     * Alter elements - create an electric slide! Yeah!
+     */
+    // setup slides
+    slides.each(function(i){
+      // insert an anchor
+      
+      if(settings.shouldInsertHeader) insertHeader(i, this);
+      $(this).width(slideWidth());
+      setMaxDimensions(this);
+
+      if(i == 0) {
+        $(this).show();
+      }
+
+      this.slideContext    = slideContext;
+      this.show = settings.showFunction;
+      this.hide = settings.hideFunction;
+      this.shouldGetFocus  = settings.slideShouldGetFocus;
+      this.willGetFocus    = settings.slideWillGetFocus;
+      this.didGetFocus     = settings.slideDidGetFocus;
+      this.shouldLoseFocus = settings.slideShouldLoseFocus;
+      this.willLoseFocus   = settings.slideWillLoseFocus;
+      this.didLoseFocus    = settings.slideDidLoseFocus;
+    })
+    
+    // setup dimensions - needs to happen after slides are set up
+    // to account for navigation being inserted
+    setSlideContainerHeight();
+    $(window).resize(resetDimensions)
     
     // similar to http://github.com/nakajima/slidedown/blob/master/templates/javascripts/slides.js
     function clickMove(e) {
@@ -240,12 +256,12 @@ $.fn.electricSlide = function(options){
       
       tocContainer.append(tableOfContents);
       
-      function activateCurrectTocLine() {
+      function activateCurrentTocLine() {
         tableOfContents.children("li.active").removeClass("active")
         tableOfContents.children("li:eq(" + currentSlidePosition + ")").addClass("active")
       }
     } else {
-      function activateCurrectTocLine() { 
+      function activateCurrentTocLine() { 
       }
     }
     
