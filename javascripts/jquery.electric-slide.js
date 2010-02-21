@@ -15,7 +15,7 @@ $.fn.electricSlide = function(options){
     return true;
   }
   var settings = {
-    slideSelector            : ".slide",
+    slideClass               : "slide",
 
     // header/navigation
     shouldInsertHeader       : true,
@@ -38,10 +38,14 @@ $.fn.electricSlide = function(options){
     slideDidGetFocus         : trueSlideFunction, // do stuff with the slide after it appears
     slideShouldLoseFocus     : trueSlideFunction,
     slideWillLoseFocus       : trueSlideFunction,
-    slideDidLoseFocus        : trueSlideFunction
+    slideDidLoseFocus        : trueSlideFunction,
+    
+    // toggling presentation styles
+    toggleSelector           : "#slide-toggle"
   }
 
   $.extend(settings, options)
+  settings.slideSelector = "." + settings.slideClass
   
   this.each(function(){
     var slideContainer = $(this);
@@ -97,7 +101,7 @@ $.fn.electricSlide = function(options){
       if(bottomBorder > maxBottomBorder) maxBottomBorder = bottomBorder;
     }
 
-    function resetDimensions() {
+    function resetDimensions(animationDuration) {
       maxHeight = 0;
       maxTopMargin = 0;
       maxBottomMargin = 0;
@@ -108,16 +112,25 @@ $.fn.electricSlide = function(options){
       slides.each(function(){
         $(this).width(slideWidth());
         setMaxDimensions(this);
-        setSlideContainerHeight();
+        setSlideContainerHeight(animationDuration);
       })
     }
-
+    
     function slideWidth() {
       return $("#slides").width()
     }
     
-    function setSlideContainerHeight() {
-      slideContainer.height(maxHeight + maxTopMargin + maxBottomMargin + maxTopPadding + maxBottomPadding + maxTopBorder + maxBottomBorder)
+    function slideContainerHeight() {
+      return maxHeight + maxTopMargin + maxBottomMargin + maxTopPadding + maxBottomPadding + maxTopBorder + maxBottomBorder
+    }
+    
+    function setSlideContainerHeight(animationDuration) {
+      if(typeof(animationDuration) != "undefined") {
+        slideContainer.animate({height:slideContainerHeight()}, animationDuration)
+      } else {
+        slideContainer.height(slideContainerHeight())
+      }
+      
     }
 
     /***
@@ -178,6 +191,17 @@ $.fn.electricSlide = function(options){
       }
     }
     
+    // similar to http://github.com/nakajima/slidedown/blob/master/templates/javascripts/slides.js
+    function clickMove(e) {
+      var x = e.pageX - this.offsetLeft;
+
+      if (x < slideWidth() / 2) {
+        showPreviousSlide();
+      } else {
+        showNextSlide();
+      }
+    }
+    
     /***
      * Navigation HTML functions
      */
@@ -224,6 +248,24 @@ $.fn.electricSlide = function(options){
     }
     
     /***
+     * Expand/Collapse
+     */
+    function expandAll() {
+      slides.show()
+      slides.children(".slide-header").hide()
+      slideContainer.animate({height:$("#track").height()})
+      return false;
+    }
+    
+    function collapseAll() {
+      slides.children(".slide-header").show()
+      slides.hide()
+      $(slides[0]).show()
+      resetDimensions(400)
+      return false;
+    }
+    
+    /***
      * Alter elements - create an electric slide! Yeah!
      */
     // setup slides
@@ -254,17 +296,9 @@ $.fn.electricSlide = function(options){
     setSlideContainerHeight();
     $(window).resize(resetDimensions)
     
-    // similar to http://github.com/nakajima/slidedown/blob/master/templates/javascripts/slides.js
-    function clickMove(e) {
-      var x = e.pageX - this.offsetLeft;
-
-      if (x < slideWidth() / 2) {
-        showPreviousSlide();
-      } else {
-        showNextSlide();
-      }
-    }
-    slideContainer.dblclick(clickMove)
+    // more handlers
+    slideContainer.click(clickMove)
+    $(settings.toggleSelector).toggle(expandAll, collapseAll)
     
     // generate the TOC
     if(settings.buildToc) generateToc();
