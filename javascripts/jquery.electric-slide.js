@@ -25,7 +25,7 @@ $.fn.electricSlide = function(options){
     nextHtml                 : "<a href='#' class='slide-navigation next'>next</a>",
     previousHtml             : "<a href='#' class='slide-navigation previous'>previous</a>",
     
-    buildTableOfContents     : true,
+    buildToc     : true,
     tocContainerSelector     : "#table-of-contents",
 
     // show/hide 
@@ -162,7 +162,7 @@ $.fn.electricSlide = function(options){
       currentSlidePosition = newSlidePosition;
       
       // highlight toc item if applicable
-      activateCurrentTocLine();
+      if(typeof(activateCurrentTocLine) != "undefined")  activateCurrentTocLine();
     }
 
     function showNextSlide() {
@@ -205,27 +205,22 @@ $.fn.electricSlide = function(options){
     
     // TODO allow users to provide their own function for generating the toc
     function generateToc() {
-      if(settings.buildTableOfContents) {
-        tocContainer = $(settings.tocContainerSelector)
+      tocContainer = $(settings.tocContainerSelector)
 
-        tableOfContents = $("<ol class='slide-toc'></ol>")
-        tableOfContents.lines = [];
+      tableOfContents = $("<ol class='slide-toc'></ol>")
+      tableOfContents.lines = [];
 
-        titles.each(function(i){
-          line = $("<li><a href='#slide-" + i + "'>" + $(this).text() + "</a></li>")
-          $("a", line).click(function(){showSlide(i)}) // could optimize this
-          tableOfContents.append(line)
-        })
+      titles.each(function(i){
+        line = $("<li><a href='#slide-" + i + "'>" + $(this).text() + "</a></li>")
+        $("a", line).click(function(){showSlide(i)}) // could optimize this
+        tableOfContents.append(line)
+      })
 
-        tocContainer.append(tableOfContents);
+      tocContainer.append(tableOfContents);
 
-        this.activateCurrentTocLine = function() {
-          tableOfContents.children("li.active").removeClass("active")
-          tableOfContents.children("li:eq(" + currentSlidePosition + ")").addClass("active")
-        }
-      } else {
-        this.activateCurrentTocLine = function() { 
-        }
+      this.activateCurrentTocLine = function() {
+        tableOfContents.children("li.active").removeClass("active")
+        tableOfContents.children("li:eq(" + currentSlidePosition + ")").addClass("active")
       }
     }
     
@@ -272,11 +267,8 @@ $.fn.electricSlide = function(options){
     }
     slideContainer.dblclick(clickMove)
     
-    
-    /***
-     * Generate a TOC
-     */
-    generateToc();
+    // generate the TOC
+    if(settings.buildToc) generateToc();
     
     
   }); // end this.each
