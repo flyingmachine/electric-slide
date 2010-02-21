@@ -147,7 +147,7 @@ $.fn.electricSlide = function(options){
         return false;
       }
       oldSlide.willLoseFocus(oldSlidePosition, newSlidePosition);
-      console.log("hiding: " + oldSlidePosition)
+      // TODO should this go into willlosefocus?
       $(oldSlide).stop();
       oldSlide.hide(oldSlidePosition, newSlidePosition);
       oldSlide.didLoseFocus(oldSlidePosition, newSlidePosition);
@@ -203,6 +203,31 @@ $.fn.electricSlide = function(options){
       $(slideElem).prepend(header)
     }
     
+    // TODO allow users to provide their own function for generating the toc
+    function generateToc() {
+      if(settings.buildTableOfContents) {
+        tocContainer = $(settings.tocContainerSelector)
+
+        tableOfContents = $("<ol class='slide-toc'></ol>")
+        tableOfContents.lines = [];
+
+        titles.each(function(i){
+          line = $("<li><a href='#slide-" + i + "'>" + $(this).text() + "</a></li>")
+          $("a", line).click(function(){showSlide(i)}) // could optimize this
+          tableOfContents.append(line)
+        })
+
+        tocContainer.append(tableOfContents);
+
+        this.activateCurrentTocLine = function() {
+          tableOfContents.children("li.active").removeClass("active")
+          tableOfContents.children("li:eq(" + currentSlidePosition + ")").addClass("active")
+        }
+      } else {
+        this.activateCurrentTocLine = function() { 
+        }
+      }
+    }
     
     /***
      * Alter elements - create an electric slide! Yeah!
@@ -251,28 +276,8 @@ $.fn.electricSlide = function(options){
     /***
      * Generate a TOC
      */
-    if(settings.buildTableOfContents) {
-      tocContainer = $(settings.tocContainerSelector)
-      
-      tableOfContents = $("<ol class='slide-toc'></ol>")
-      tableOfContents.lines = [];
-      
-      titles.each(function(i){
-        line = $("<li><a href='#slide-" + i + "'>" + $(this).text() + "</a></li>")
-        $("a", line).click(function(){showSlide(i)}) // could optimize this
-        tableOfContents.append(line)
-      })
-      
-      tocContainer.append(tableOfContents);
-      
-      function activateCurrentTocLine() {
-        tableOfContents.children("li.active").removeClass("active")
-        tableOfContents.children("li:eq(" + currentSlidePosition + ")").addClass("active")
-      }
-    } else {
-      function activateCurrentTocLine() { 
-      }
-    }
+    generateToc();
+    
     
   }); // end this.each
   return this;
