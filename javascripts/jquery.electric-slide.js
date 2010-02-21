@@ -44,7 +44,6 @@ $.fn.electricSlide = function(options){
   $.extend(settings, options)
   
   this.each(function(){
-    var slideContext = this;
     var slideContainer = $(this);
     var slides = $(settings.slideSelector, slideContainer);
     var currentSlidePosition = 0;
@@ -239,7 +238,7 @@ $.fn.electricSlide = function(options){
         $(this).show();
       }
 
-      this.slideContext    = slideContext;
+      this.slideContext    = this;
       this.show = settings.showFunction;
       this.hide = settings.hideFunction;
       this.shouldGetFocus  = settings.slideShouldGetFocus;
