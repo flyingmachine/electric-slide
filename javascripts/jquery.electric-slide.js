@@ -125,12 +125,11 @@ $.fn.electricSlide = function(options){
     }
     
     function setSlideContainerHeight(animationDuration) {
-      if(typeof(animationDuration) != "undefined") {
+      if(typeof(animationDuration) == "number") {
         slideContainer.animate({height:slideContainerHeight()}, animationDuration)
       } else {
         slideContainer.height(slideContainerHeight())
       }
-      
     }
 
     /***
