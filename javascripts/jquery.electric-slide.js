@@ -181,6 +181,7 @@ $.fn.electricSlide = function(options){
       if(newSlidePosition <= maxSlidePosition()) {
         showSlide(newSlidePosition)
       }
+      return false
     }
 
     function showPreviousSlide() {
@@ -188,6 +189,7 @@ $.fn.electricSlide = function(options){
       if(newSlidePosition >= 0) {
         showSlide(newSlidePosition)
       }
+      return false
     }
     
     // similar to http://github.com/nakajima/slidedown/blob/master/templates/javascripts/slides.js
