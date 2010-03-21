@@ -8,12 +8,14 @@ $.fn.electricSlide = function(options){
     Each slide element has a "slideContext" attribute
     which you can use to refer to anything defined here.
     
-    The "slideContext" is just the the slide container element (I think)
+    The "slideContext" is just the the slide container element
   */
   // dummy function; is this necessary?
   function trueSlideFunction(oldSlidePosition, newSlidePosition){
     return true;
   }
+  
+  // override these settings when you call the electricSlide function
   var settings = {
     slideClass               : "slide",
 
@@ -212,25 +214,25 @@ $.fn.electricSlide = function(options){
      * Navigation HTML functions
      */
     function insertHeader(i, slideElem){
-      var header = $("<div class='" + settings.slideHeaderClass + "'></div>'");
+      var header = $("<div class='" + settings.slideHeaderClass + "'><div class='clear-slide-header'></div></div>'");
       var j;
       
       // TODO clean this confusing mess up
       // don't show next/previous if there is no next/previous
-      if(i > 0) {
-        j = i - 1;
-        var previousElement = $(settings.previousHtml)
-        if(titles[j]) previousElement.text((j + 1) + ". " + $(titles[j]).text()) // replace link text with title of prev slide
-        previousElement.click(showPreviousSlide)
-        header.append(previousElement)
-      }
-
       if(i < maxSlidePosition()) {
         j = i + 1;
         var nextElement = $(settings.nextHtml)
         if(titles[j]) nextElement.text((j + 1) + ". " + $(titles[j]).text()) // replace link text with title of next slide
         nextElement.click(showNextSlide)
-        header.append(nextElement);
+        header.prepend(nextElement);
+      }
+      
+      if(i > 0) {
+        j = i - 1;
+        var previousElement = $(settings.previousHtml)
+        if(titles[j]) previousElement.text((j + 1) + ". " + $(titles[j]).text()) // replace link text with title of prev slide
+        previousElement.click(showPreviousSlide)
+        header.prepend(previousElement)
       }
 
       $(slideElem).prepend(header)
@@ -306,7 +308,7 @@ $.fn.electricSlide = function(options){
     setSlideContainerHeight();
     $(window).resize(resetDimensions)
     
-    // Let's thurn this off for now
+    // Let's turn this off for now - it's a bit unintuitive
     // slideContainer.click(clickMove)
     $(settings.toggleSelector, this).toggle(expandAll, collapseAll)
     

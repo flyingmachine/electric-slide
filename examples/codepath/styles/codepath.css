@@ -112,9 +112,15 @@ h4 { font: italic 1.2em Georgia, "Times New Roman", Times, serif; color: #888; }
 
 /*---:[ core layout elements ]:---*/
 
-#container { width: 870px; margin: 15px auto 0 auto; }
+.table-of-contents {
+  position:absolute;
+  left:0px;
+  top:32px;
+}
+
+#container { width: 670px; margin: 15px auto 0 auto; padding-left:200px; position:relative; }
 					
-	#content_box { width: 870px; text-align: left; float: left; clear: both; }
+	#content_box { width: 670px; text-align: left; float: left; clear: both; }
 	
 		#content { width: 600px; padding: 0 40px 0 0; float: left; }
 		
