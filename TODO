@@ -1,0 +1,2 @@
+* Use classes instead of id's for toggleSelector and tocContainerSelector
+* Come up with a better default example... yeesh!

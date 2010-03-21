@@ -19,17 +19,19 @@ $.fn.electricSlide = function(options){
 
     // header/navigation
     shouldInsertHeader       : true,
+    slideHeaderClass         : "slide-header",
     titleSelector            : "h3",
     // "next/previous" text is replaced with title if there is one
     // href is replaced with "#slide-i", where i is slide's position
     nextHtml                 : "<a href='#' class='slide-navigation next'>next</a>",
     previousHtml             : "<a href='#' class='slide-navigation previous'>previous</a>",
     
-    buildToc     : true,
-    tocContainerSelector     : "#table-of-contents",
+    // The table of contents element must be within the element containing all slides
+    buildToc                 : true,
+    tocContainerSelector     : ".table-of-contents",
 
     // show/hide 
-    showFunction             : function(){$(this).slideDown()},
+    showFunction             : function(){$(this).show()},
     hideFunction             : function(){$(this).hide()},
 
     // callbacks
@@ -40,12 +42,14 @@ $.fn.electricSlide = function(options){
     slideWillLoseFocus       : trueSlideFunction,
     slideDidLoseFocus        : trueSlideFunction,
     
-    // toggling presentation styles
-    toggleSelector           : "#slide-toggle"
+    // When clicked, this will toggle presentation styles
+    // The toggle element must be within the element containing all slides
+    toggleSelector           : ".slide-toggle"
   }
 
   $.extend(settings, options)
   settings.slideSelector = "." + settings.slideClass
+  settings.slideHeaderSelector = "." + settings.slideHeaderClass
   
   this.each(function(){
     var slideContainer = $(this);
@@ -158,7 +162,6 @@ $.fn.electricSlide = function(options){
         return false;
       }
       oldSlide.willLoseFocus(oldSlidePosition, newSlidePosition);
-      // TODO should this go into willlosefocus?
       $(oldSlide).stop();
       oldSlide.hide(oldSlidePosition, newSlidePosition);
       oldSlide.didLoseFocus(oldSlidePosition, newSlidePosition);
@@ -193,6 +196,8 @@ $.fn.electricSlide = function(options){
     }
     
     // similar to http://github.com/nakajima/slidedown/blob/master/templates/javascripts/slides.js
+    // This will 'navigate' to the next/prev slide if the user clicks in the right/left half
+    // of the slide div
     function clickMove(e) {
       var x = e.pageX - this.offsetLeft;
 
@@ -207,9 +212,10 @@ $.fn.electricSlide = function(options){
      * Navigation HTML functions
      */
     function insertHeader(i, slideElem){
-      var header = $("<div class='slide-header'></div>'");
+      var header = $("<div class='" + settings.slideHeaderClass + "'></div>'");
       var j;
-
+      
+      // TODO clean this confusing mess up
       // don't show next/previous if there is no next/previous
       if(i > 0) {
         j = i - 1;
@@ -256,13 +262,13 @@ $.fn.electricSlide = function(options){
      */
     function expandAll() {
       slides.show()
-      slides.children(".slide-header").hide()
+      slides.children(settings.slideHeaderSelector).hide()
       slideContainer.animate({height:$("#track").height()})
       return false;
     }
     
     function collapseAll() {
-      slides.children(".slide-header").show()
+      slides.children(settings.slideHeaderSelector).show()
       slides.hide()
       $(slides[0]).show()
       resetDimensions(400)
@@ -300,9 +306,9 @@ $.fn.electricSlide = function(options){
     setSlideContainerHeight();
     $(window).resize(resetDimensions)
     
-    // more handlers
-    slideContainer.click(clickMove)
-    $(settings.toggleSelector).toggle(expandAll, collapseAll)
+    // Let's thurn this off for now
+    // slideContainer.click(clickMove)
+    $(settings.toggleSelector, this).toggle(expandAll, collapseAll)
     
     // generate the TOC
     if(settings.buildToc) generateToc();
