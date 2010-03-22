@@ -25,7 +25,7 @@ $.fn.electricSlide = function(options){
     nextHtml                 : "<a href='#' class='slide-navigation next'>next</a>",
     previousHtml             : "<a href='#' class='slide-navigation previous'>previous</a>",
     
-    buildToc     : true,
+    buildToc                 : true,
     tocContainerSelector     : "#table-of-contents",
 
     // show/hide 
@@ -33,12 +33,12 @@ $.fn.electricSlide = function(options){
     hideFunction             : function(){$(this).hide()},
 
     // callbacks
-    slideShouldGetFocus      : trueSlideFunction, // allows you to prevent the slide from losing focus; not sure if "getFocus" should be "hide"
-    slideWillGetFocus        : trueSlideFunction, // setup the slide before it appears.. or something
-    slideDidGetFocus         : trueSlideFunction, // do stuff with the slide after it appears
-    slideShouldLoseFocus     : trueSlideFunction,
-    slideWillLoseFocus       : trueSlideFunction,
-    slideDidLoseFocus        : trueSlideFunction,
+    slideShouldShow      : trueSlideFunction, // allows you to prevent the slide from losing focus; not sure if "getFocus" should be "hide"
+    slideWillShow        : trueSlideFunction, // setup the slide before it appears.. or something
+    slideDidShow         : trueSlideFunction, // do stuff with the slide after it appears
+    slideShouldHide     : trueSlideFunction,
+    slideWillHide       : trueSlideFunction,
+    slideDidHide        : trueSlideFunction,
     
     // toggling presentation styles
     toggleSelector           : "#slide-toggle"
@@ -117,7 +117,7 @@ $.fn.electricSlide = function(options){
     }
     
     function slideWidth() {
-      return $("#slides").width()
+      return slideContainer.width()
     }
     
     function slideContainerHeight() {
@@ -135,10 +135,6 @@ $.fn.electricSlide = function(options){
     /***
      * Navigation functions
      */
-    function currentSlide() {
-      return slides[currentSlidePosition][0];
-    }
-
     function maxSlidePosition() {
       return slides.size() - 1;
     }
@@ -154,22 +150,22 @@ $.fn.electricSlide = function(options){
       }
       
       // give the opportunity to prevent the slide from changing
-      if(!oldSlide.shouldLoseFocus(oldSlidePosition, newSlidePosition)) {
+      if(!oldSlide.shouldHide(oldSlidePosition, newSlidePosition)) {
         return false;
       }
-      oldSlide.willLoseFocus(oldSlidePosition, newSlidePosition);
+      oldSlide.willHide(oldSlidePosition, newSlidePosition);
       // TODO should this go into willlosefocus?
       $(oldSlide).stop();
       oldSlide.hide(oldSlidePosition, newSlidePosition);
-      oldSlide.didLoseFocus(oldSlidePosition, newSlidePosition);
+      oldSlide.didHide(oldSlidePosition, newSlidePosition);
 
       // should I really be doing this? will just leave the slideshow blank
-      if(!newSlide.shouldGetFocus(oldSlidePosition, newSlidePosition)) {
+      if(!newSlide.shouldShow(oldSlidePosition, newSlidePosition)) {
         return false;
       }
-      newSlide.willGetFocus(oldSlidePosition, newSlidePosition);
+      newSlide.willShow(oldSlidePosition, newSlidePosition);
       newSlide.show(oldSlidePosition, newSlidePosition);
-      newSlide.didGetFocus(oldSlidePosition, newSlidePosition);
+      newSlide.didShow(oldSlidePosition, newSlidePosition);
       currentSlidePosition = newSlidePosition;
       
       // highlight toc item if applicable
@@ -235,7 +231,6 @@ $.fn.electricSlide = function(options){
       tocContainer = $(settings.tocContainerSelector)
 
       tableOfContents = $("<ol class='slide-toc'></ol>")
-      tableOfContents.lines = [];
 
       titles.each(function(i){
         line = $("<li><a href='#slide-" + i + "'>" + $(this).text() + "</a></li>")
@@ -287,12 +282,12 @@ $.fn.electricSlide = function(options){
       this.slideContext    = this;
       this.show = settings.showFunction;
       this.hide = settings.hideFunction;
-      this.shouldGetFocus  = settings.slideShouldGetFocus;
-      this.willGetFocus    = settings.slideWillGetFocus;
-      this.didGetFocus     = settings.slideDidGetFocus;
-      this.shouldLoseFocus = settings.slideShouldLoseFocus;
-      this.willLoseFocus   = settings.slideWillLoseFocus;
-      this.didLoseFocus    = settings.slideDidLoseFocus;
+      this.shouldShow  = settings.slideShouldShow;
+      this.willShow    = settings.slideWillShow;
+      this.didShow     = settings.slideDidShow;
+      this.shouldHide = settings.slideShouldHide;
+      this.willHide   = settings.slideWillHide;
+      this.didHide    = settings.slideDidHide;
     })
     
     // setup dimensions - needs to happen after slides are set up
