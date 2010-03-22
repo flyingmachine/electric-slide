@@ -19,3 +19,7 @@ http://github.com/nakajima/slidedown/blob/master/templates/stylesheets/slides.cs
 #table-of-contents {
   
 }
+
+.clear-slide-header {
+  clear:both;
+}
