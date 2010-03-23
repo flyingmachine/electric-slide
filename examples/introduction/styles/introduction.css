@@ -22,6 +22,10 @@ li {
   margin-bottom:1em;
 }
 
+li.active a {
+  color:#60828f;
+}
+
 #slides {
   padding:0 20px 10px;
 }

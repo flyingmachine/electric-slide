@@ -310,6 +310,7 @@ $.fn.electricSlide = function(options){
     
     // generate the TOC
     if(settings.buildToc) generateToc();
+    activateCurrentTocLine();
     
     // setup dimensions - needs to happen after slides are set up
     // to account for navigation being inserted
