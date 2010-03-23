@@ -5,29 +5,36 @@ http://github.com/nakajima/slidedown/blob/master/templates/stylesheets/slides.cs
 
 body {
   color:#302d30;
-  background:#F0DCB9;
+  background:#EEEEDD;
   line-height:1.6em;
 }
 
 a {
-  color:#105761;
+  color:#E56100;
   text-decoration:none;
+}
+
+a:hover {
+  color:#60828f;
 }
 
 li {
   margin-bottom:1em;
 }
 
+#slides {
+  padding:0 20px 10px;
+}
+
+#slides .slide-header {
+  margin:0 -20px;
+}
+
 #code-path-slides {
   overflow: hidden;
   text-align: left;
 }
- 
-/* 
-  Very weird: for some reason when jquery is computing heights
-  it doesn't correctly accommodate the height of the interior p element
-  except when the containing slide is not displayed
-*/
+
 .code-path-slide {
   display:none;
 }
@@ -41,7 +48,7 @@ li {
 }
 
 .slide-header a:hover {
-  background:#105761;
+  background:#6A909F;
   color:white;
 }
 
@@ -72,7 +79,7 @@ li {
 }
 
 #main {
-
+  background:white;
 }
 
 #code-path {
