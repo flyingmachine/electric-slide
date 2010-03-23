@@ -31,7 +31,7 @@ $.fn.electricSlide = function(options){
     previousHtml             : "<a href='#' class='slide-navigation previous'>previous</a>",
     
     buildToc                 : true,
-    tocContainerSelector     : ".table-of-contents",
+    tocContainerSelector     : "#table-of-contents",
 
     // show/hide 
     showFunction             : function(){$(this).show()},
@@ -238,7 +238,7 @@ $.fn.electricSlide = function(options){
     
     // TODO allow users to provide their own function for generating the toc
     function generateToc() {
-      tocContainer = $(settings.tocContainerSelector, slideContext)
+      tocContainer = $(settings.tocContainerSelector)
 
       tableOfContents = $("<ol class='slide-toc'></ol>")
 

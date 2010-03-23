@@ -112,7 +112,7 @@ h4 { font: italic 1.2em Georgia, "Times New Roman", Times, serif; color: #888; }
 
 /*---:[ core layout elements ]:---*/
 
-.table-of-contents {
+#table-of-contents {
   position:absolute;
   left:0px;
   top:32px;

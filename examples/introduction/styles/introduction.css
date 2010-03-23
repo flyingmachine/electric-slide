@@ -16,6 +16,27 @@ http://github.com/nakajima/slidedown/blob/master/templates/stylesheets/slides.cs
   display:none;
 }
 
+.slide-header .previous { 
+  float:left;
+  width:50%;
+  padding:10px 0;
+  text-indent:10px;
+  display:block;
+}
+
+.slide-header  .next { 
+  float: right;
+  width:50%;
+  padding:10px 0;
+  text-align:right;
+  text-indent:10px;
+  display:block;
+}
+
+.table-of-contents {
+}
+
+
 /* code ray styles */
 pre {
 	background: #f5f6e7;
@@ -28,9 +49,6 @@ pre {
 	overflow: hidden;
 	font-family: Courier New, monospace;
 	font-size: 12px;
-}
-
-.table-of-contents {
 }
 
 
@@ -198,9 +216,9 @@ ul#nav { list-style: none; width: 850px; padding: 0 10px; background: url('/imag
 
 .navigation { width: 500px; font-size: 1.4em; float: left; }
 	
-	.previous { padding: 0 20px 0 0; float: left; }
+	.navigation .previous { padding: 0 20px 0 0; float: left; }
 	
-	.next { float: right; }
+	.navigation .next { float: right; }
 
 .clear { width: 500px; height: 1px; margin: 0 0 5.0em 0; clear: both; }
 
