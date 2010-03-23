@@ -29,7 +29,30 @@
         <div class="slide">
           <h3>The Inspiration</h3>
         
-          <p>Electric Slide can best be understood by taking a look at the  content which inspired it. My friend and colleague Pat Shaughnessy has been working on the idea of a "code path" as a way of explaining what happens when ruby is executed.</p>        
+          <p>
+            Electric Slide can best be understood by taking a look at the  content which inspired it. My friend and colleague Pat Shaughnessy has been working on the idea of a "code path" as a way of explaining what happens when ruby is executed. <a href="http://patshaughnessy.net/2009/12/30/how-does-the-complex-form-examples-sample-app-work" title="How does the complex-form-examples sample app work?-Pat Shaughnessy">Here's his original blog post on what he wanted to explain</a>, and <a href="http://patshaughnessy.net/codepath/1/pages/1" title="Code Path #1 - Pat Shaughnessy">here's his original code path</a>.
+          </p>
+          
+          <p>
+            Pat was nice enough to use Electric Slide on his code path. You can see the result below. There's a <a href="../codepath/codepath.html">larger example</a> in the examples directory of this project.
+          </p>
+          
+          <p>
+            What strikes me about Pat's manner of presentation it's really easy to see what changes every step along the way as Ruby evaluates some code. Because most of the code remains stationary as you go through each slide of Pat's tutorial, you can easily detect the changes visually. If all the code chunks were presented simultaneously and you had to scroll through them, this just wouldn't be possible.
+          </p>
+          
+          <p>
+            Pat's tutorial is also very easy on the eyes. Each of his pages focuses on one idea, and that makes it easy for me to focus. Overall, I think Pat's tutorial is very helpful, and I think its format greatly contributes to how easy it is to understand and enjoy.
+          </p>
+          
+          <p>
+            So where does Electric Slide come in? The original intention was to do the following:
+          </p>
+          <ul>
+            <li>Allow all slides to be present on one page. This has the obvious advantage that the user won't have to wait for every new page to load. A side-effect is that it's easier to visually detect changes between slides.</li>
+            <li>Automatically generate navigation for the slides. One drawback I saw to Pat's presentation was that there was no table of contents. Users didn't have any idea how many more slides they'd have to go through before they were done. (As if they'd want to finish, anyway!) Electric slide can automatically generate a TOC, as well as "next" and "previous" links. All such navigation you see on this page was automatically generated.</li>
+            
+          </ul>
         </div>
       
         <div class="slide">
@@ -49,11 +72,12 @@
     </div>
     </div>
     <div id="code-path">
+      <h2>The Code Path</h2>
       <div id="code-path-slides">
         <div id='track'>
         <div class='code-path-slide'>
           <h3>
-            Code Snippet 0
+            Original Code
           </h3>
           <div id='frame'>
             <div id='header'>
@@ -79,7 +103,7 @@
         </div>
         <div class='code-path-slide'>
           <h3>
-            Code Snippet 1
+            Replace object with :category
           </h3>
           <div id='frame'>
             <div id='header'>
@@ -102,7 +126,7 @@
         </div>
         <div class='code-path-slide'>
           <h3>
-            Code Snippet 2
+            evaluate :category.to_s
           </h3>
           <div id='frame'>
             <div id='header'>
@@ -125,7 +149,7 @@
         </div>
         <div class='code-path-slide'>
           <h3>
-            Code Snippet 3
+            evaluate 'category'.camelize
           </h3>
           <div id='frame'>
             <div id='header'>

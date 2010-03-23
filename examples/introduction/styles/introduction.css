@@ -6,11 +6,16 @@ http://github.com/nakajima/slidedown/blob/master/templates/stylesheets/slides.cs
 body {
   color:#302d30;
   background:#F0DCB9;
+  line-height:1.6em;
 }
 
 a {
   color:#105761;
   text-decoration:none;
+}
+
+li {
+  margin-bottom:1em;
 }
 
 #code-path-slides {
@@ -67,8 +72,8 @@ a {
 }
 
 #code-path {
-
-  padding:20px;
+  margin-top:50px;
+  padding:10px 20px;
   background:#eee;
 }
 
@@ -125,7 +130,7 @@ p.unstyled { font-size: 1.4em; }
 
 h1, h2, h3 { font-weight: bold; font-family: Helvetica, Arial, sans-serif; }
 
-h1 { font-size: 3.6em; letter-spacing: -0.03em; }
+h1 { font-size: 3.6em; letter-spacing: -0.03em; line-height:1em;}
 
 	#masthead h1 { padding: 0.4em 0 0.2em 0; border-top: 1px solid #ccc; text-align: left; clear: both; }
 	
