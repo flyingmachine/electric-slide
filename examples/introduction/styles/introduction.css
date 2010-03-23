@@ -16,26 +16,57 @@ http://github.com/nakajima/slidedown/blob/master/templates/stylesheets/slides.cs
   display:none;
 }
 
+.slide-header a {
+  background:#ddd;
+}
+
+.slide-header a:hover {
+  background:#eee;
+}
+
 .slide-header .previous { 
   float:left;
-  width:50%;
-  padding:10px 0;
-  text-indent:10px;
+  width:380px;
+  padding:10px;
   display:block;
 }
 
 .slide-header  .next { 
   float: right;
-  width:50%;
-  padding:10px 0;
+  width:380px;
+  padding:10px;
   text-align:right;
-  text-indent:10px;
   display:block;
 }
 
-.table-of-contents {
+#table-of-contents {
+  position:absolute;
+  left:0;
 }
 
+
+#wrapper {
+  width:800px;
+  margin: 0 0 0 200px;
+}
+
+#main {
+
+}
+
+#code-path {
+  margin:40px auto;
+  padding:20px;
+  background:#cfcfdf;
+}
+
+#code-path .slide-header .previous { 
+  width:360px;
+}
+
+#code-path .slide-header  .next { 
+  width:360px;
+}
 
 /* code ray styles */
 pre {
