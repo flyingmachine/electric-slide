@@ -297,15 +297,15 @@ $.fn.electricSlide = function(options){
         $(this).show();
       }
 
-      this.slideContext    =  slideContext;
-      this.show = settings.showFunction;
-      this.hide = settings.hideFunction;
-      this.shouldShow  = settings.slideShouldShow;
-      this.willShow    = settings.slideWillShow;
-      this.didShow     = settings.slideDidShow;
-      this.shouldHide = settings.slideShouldHide;
-      this.willHide   = settings.slideWillHide;
-      this.didHide    = settings.slideDidHide;
+      this.slideContext = slideContext;
+      this.show         = settings.showFunction;
+      this.hide         = settings.hideFunction;
+      this.shouldShow   = settings.slideShouldShow;
+      this.willShow     = settings.slideWillShow;
+      this.didShow      = settings.slideDidShow;
+      this.shouldHide   = settings.slideShouldHide;
+      this.willHide     = settings.slideWillHide;
+      this.didHide      = settings.slideDidHide;
     })
     
     // generate the TOC

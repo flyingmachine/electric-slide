@@ -84,16 +84,6 @@
             Original Code
           </h3>
           <div id='frame'>
-            <div id='header'>
-              <div id='header_left'>
-
-
-              </div>
-              <div id='header_right'>
-                <a href="#" class="slide-navigation next" title="Next code snippet">replace object with :category</a>
-                <a href="#" class="icon" title="Next code snippet"></a>
-              </div>
-            </div>
             <div class="CodeRay">
               <div class="code"><pre><span class="r">def</span> <span class="fu">auto_complete_for</span>(object, method, options = {})&#x000A;  define_method(<span class="s"><span class="dl">&quot;</span><span class="k">auto_complete_for_</span><span class="il"><span class="idl">#{</span>object<span class="idl">}</span></span><span class="k">_</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="dl">&quot;</span></span>) <span class="r">do</span>&#x000A;    find_options = { &#x000A;      <span class="sy">:conditions</span> =&gt; [&#x000A;                       <span class="s"><span class="dl">&quot;</span><span class="k">LOWER(</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">) LIKE ?</span><span class="dl">&quot;</span></span>,&#x000A;                       <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span> + params[object][method].downcase + <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span>&#x000A;                     ],&#x000A;      <span class="sy">:order</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k"> ASC</span><span class="dl">&quot;</span></span>,&#x000A;      <span class="sy">:limit</span> =&gt; <span class="i">10</span> }.merge!(options)&#x000A;&#x000A;    <span class="iv">@items</span> = object.to_s.camelize.constantize.find(<span class="sy">:all</span>, find_options)&#x000A;&#x000A;    render <span class="sy">:inline</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="k">&lt;%= auto_complete_result @items, '</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">' %&gt;</span><span class="dl">&quot;</span></span>&#x000A;  <span class="r">end</span>&#x000A;<span class="r">end</span></pre></div>
             </div>
@@ -110,16 +100,6 @@
             Replace object with :category
           </h3>
           <div id='frame'>
-            <div id='header'>
-              <div id='header_left'>
-                <a href="#" class="icon" title="Previous code snippet"></a>
-                <a href="#" class="slide-navigation previous" title="Previous code snippet">original code </a>
-              </div>
-              <div id='header_right'>
-                <a href="#" class="slide-navigation next" title="Next code snippet">evaluate :category.to_s</a>
-                <a href="#" class="icon" title="Next code snippet"></a>
-              </div>
-            </div>
             <div class="CodeRay">
               <div class="code"><pre><span class="r">def</span> <span class="fu">auto_complete_for</span>(<span class="sy"><span class='container'>:category<span class='overlay'></span></span></span>, method, options = {})&#x000A;  define_method(<span class="s"><span class="dl">&quot;</span><span class="k">auto_complete_for_</span><span class="il"><span class="idl">#{</span><span class="sy"><span class='container'>:category<span class='overlay'></span></span></span><span class="idl">}</span></span><span class="k">_</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="dl">&quot;</span></span>) <span class="r">do</span>&#x000A;    find_options = { &#x000A;      <span class="sy">:conditions</span> =&gt; [&#x000A;                       <span class="s"><span class="dl">&quot;</span><span class="k">LOWER(</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">) LIKE ?</span><span class="dl">&quot;</span></span>,&#x000A;                       <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span> + params[<span class="sy"><span class='container'>:category<span class='overlay'></span></span></span>][method].downcase + <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span>&#x000A;                     ],&#x000A;      <span class="sy">:order</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k"> ASC</span><span class="dl">&quot;</span></span>,&#x000A;      <span class="sy">:limit</span> =&gt; <span class="i">10</span> }.merge!(options)&#x000A;&#x000A;    <span class="iv">@items</span> = <span class="sy"><span class='container'>:category<span class='overlay'></span></span></span>.to_s.camelize.constantize.find(<span class="sy">:all</span>, find_options)&#x000A;&#x000A;    render <span class="sy">:inline</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="k">&lt;%= auto_complete_result @items, '</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">' %&gt;</span><span class="dl">&quot;</span></span>&#x000A;  <span class="r">end</span>&#x000A;<span class="r">end</span></pre></div>
             </div>
@@ -133,16 +113,6 @@
             evaluate :category.to_s
           </h3>
           <div id='frame'>
-            <div id='header'>
-              <div id='header_left'>
-                <a href="#" class="icon" title="Previous code snippet"></a>
-                <a href="#" class="slide-navigation previous" title="Previous code snippet">replace object with :category</a>
-              </div>
-              <div id='header_right'>
-                <a href="#" class="slide-navigation next" title="Next code snippet">evaluate 'category'.camelize</a>
-                <a href="#" class="icon" title="Next code snippet"></a>
-              </div>
-            </div>
             <div class="CodeRay">
               <div class="code"><pre><span class="r">def</span> <span class="fu">auto_complete_for</span>(<span class="sy">:category</span>, method, options = {})&#x000A;  define_method(<span class="s"><span class="dl">&quot;</span><span class="k">auto_complete_for_</span><span class="il"><span class="idl">#{</span><span class="sy">:category</span><span class="idl">}</span></span><span class="k">_</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="dl">&quot;</span></span>) <span class="r">do</span>&#x000A;    find_options = { &#x000A;      <span class="sy">:conditions</span> =&gt; [&#x000A;                       <span class="s"><span class="dl">&quot;</span><span class="k">LOWER(</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">) LIKE ?</span><span class="dl">&quot;</span></span>,&#x000A;                       <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span> + params[<span class="sy">:category</span>][method].downcase + <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span>&#x000A;                     ],&#x000A;      <span class="sy">:order</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k"> ASC</span><span class="dl">&quot;</span></span>,&#x000A;      <span class="sy">:limit</span> =&gt; <span class="i">10</span> }.merge!(options)&#x000A;&#x000A;    <span class="iv">@items</span> = <span class='container'><span class="s"><span class="dl">'</span><span class="k">category</span><span class="dl">'</span></span><span class='overlay'></span></span>.camelize.constantize.find(<span class="sy">:all</span>, find_options)&#x000A;&#x000A;    render <span class="sy">:inline</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="k">&lt;%= auto_complete_result @items, '</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">' %&gt;</span><span class="dl">&quot;</span></span>&#x000A;  <span class="r">end</span>&#x000A;<span class="r">end</span></pre></div>
             </div>
@@ -156,16 +126,6 @@
             evaluate 'category'.camelize
           </h3>
           <div id='frame'>
-            <div id='header'>
-              <div id='header_left'>
-                <a href="#" class="icon" title="Previous code snippet"></a>
-                <a href="#" class="slide-navigation previous" title="Previous code snippet">evaluate :category.to_s</a>
-              </div>
-              <div id='header_right'>
-                <a href="#" class="slide-navigation next" title="Next code snippet">evaluate 'Category'.constantize</a>
-                <a href="#" class="icon" title="Next code snippet"></a>
-              </div>
-            </div>
             <div class="CodeRay">
               <div class="code"><pre><span class="r">def</span> <span class="fu">auto_complete_for</span>(<span class="sy">:category</span>, method, options = {})&#x000A;  define_method(<span class="s"><span class="dl">&quot;</span><span class="k">auto_complete_for_</span><span class="il"><span class="idl">#{</span><span class="sy">:category</span><span class="idl">}</span></span><span class="k">_</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="dl">&quot;</span></span>) <span class="r">do</span>&#x000A;    find_options = { &#x000A;      <span class="sy">:conditions</span> =&gt; [&#x000A;                       <span class="s"><span class="dl">&quot;</span><span class="k">LOWER(</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">) LIKE ?</span><span class="dl">&quot;</span></span>,&#x000A;                       <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span> + params[<span class="sy">:category</span>][method].downcase + <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span>&#x000A;                     ],&#x000A;      <span class="sy">:order</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k"> ASC</span><span class="dl">&quot;</span></span>,&#x000A;      <span class="sy">:limit</span> =&gt; <span class="i">10</span> }.merge!(options)&#x000A;&#x000A;    <span class="iv">@items</span> = <span class="s"><span class='container'><span class="dl">'</span><span class="k">Category</span><span class="dl">'</span><span class='overlay'></span></span></span>.constantize.find(<span class="sy">:all</span>, find_options)&#x000A;&#x000A;    render <span class="sy">:inline</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="k">&lt;%= auto_complete_result @items, '</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">' %&gt;</span><span class="dl">&quot;</span></span>&#x000A;  <span class="r">end</span>&#x000A;<span class="r">end</span></pre></div>
             </div>
