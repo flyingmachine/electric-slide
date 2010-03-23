@@ -15,6 +15,7 @@
 	    $(function(){
          $("#slides").electricSlide();
          $("#code-path-slides").electricSlide({slideClass: "code-path-slide", buildToc:false})
+         $("#sldies")[0].resetDimensions();
        })
 	  </script>
 </head>
@@ -25,7 +26,7 @@
       <div id="table-of-contents">
       </div>
       <div id="slides">
-      <div id="track">
+      <div class="track">
         <div class="slide">
           <h3>The Inspiration</h3>
         
@@ -36,6 +37,61 @@
           <p>
             Pat was nice enough to use Electric Slide on his code path. You can see the result below. There's a <a href="../codepath/codepath.html">larger example</a> in the examples directory of this project.
           </p>
+
+          <div id="code-path">
+            <div id="code-path-slides">
+              <div class='track'>
+              <div class='code-path-slide'>
+                <h3>
+                  Original Code
+                </h3>
+                <div class='frame'>
+                  <div class="CodeRay">
+                    <div class="code"><pre><span class="r">def</span> <span class="fu">auto_complete_for</span>(object, method, options = {})&#x000A;  define_method(<span class="s"><span class="dl">&quot;</span><span class="k">auto_complete_for_</span><span class="il"><span class="idl">#{</span>object<span class="idl">}</span></span><span class="k">_</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="dl">&quot;</span></span>) <span class="r">do</span>&#x000A;    find_options = { &#x000A;      <span class="sy">:conditions</span> =&gt; [&#x000A;                       <span class="s"><span class="dl">&quot;</span><span class="k">LOWER(</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">) LIKE ?</span><span class="dl">&quot;</span></span>,&#x000A;                       <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span> + params[object][method].downcase + <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span>&#x000A;                     ],&#x000A;      <span class="sy">:order</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k"> ASC</span><span class="dl">&quot;</span></span>,&#x000A;      <span class="sy">:limit</span> =&gt; <span class="i">10</span> }.merge!(options)&#x000A;&#x000A;    <span class="iv">@items</span> = object.to_s.camelize.constantize.find(<span class="sy">:all</span>, find_options)&#x000A;&#x000A;    render <span class="sy">:inline</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="k">&lt;%= auto_complete_result @items, '</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">' %&gt;</span><span class="dl">&quot;</span></span>&#x000A;  <span class="r">end</span>&#x000A;<span class="r">end</span></pre></div>
+                  </div>
+                </div>
+                <p>You can find this code in the <a href="http://github.com/rails/auto_complete/blob/master/lib/auto_complete.rb">lib/auto_complete.rb file inside the rails/auto_complete repository on github</a>. So what the heck does all of this mean? Let&rsquo;s take a step-by-step look at this code, and see if we can figure it out.</p>
+                <p>To get started, let&rsquo;s use the category/name example I used in my last article, and also that Ryan Bates used in his <a href="http://railscasts.com/episodes/102-auto-complete-association">Auto-Complete Association screencast</a> on the auto_complete plugin:</p>
+                <pre>auto_complete_for :category, :name</pre>
+                <p>Here we are passing &ldquo;:category&rdquo; into auto_complete_for as the value for &ldquo;object,&rdquo; and &ldquo;:name&rdquo; as the value for &ldquo;method.&rdquo; Now let&rsquo;s repeat the auto_complete_for code, but substitute object with :category:</p>
+              </div>
+              <div class='code-path-slide'>
+                <h3>
+                  Replace object with :category
+                </h3>
+                <div class='frame'>
+                  <div class="CodeRay">
+                    <div class="code"><pre><span class="r">def</span> <span class="fu">auto_complete_for</span>(<span class="sy"><span class='container'>:category<span class='overlay'></span></span></span>, method, options = {})&#x000A;  define_method(<span class="s"><span class="dl">&quot;</span><span class="k">auto_complete_for_</span><span class="il"><span class="idl">#{</span><span class="sy"><span class='container'>:category<span class='overlay'></span></span></span><span class="idl">}</span></span><span class="k">_</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="dl">&quot;</span></span>) <span class="r">do</span>&#x000A;    find_options = { &#x000A;      <span class="sy">:conditions</span> =&gt; [&#x000A;                       <span class="s"><span class="dl">&quot;</span><span class="k">LOWER(</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">) LIKE ?</span><span class="dl">&quot;</span></span>,&#x000A;                       <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span> + params[<span class="sy"><span class='container'>:category<span class='overlay'></span></span></span>][method].downcase + <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span>&#x000A;                     ],&#x000A;      <span class="sy">:order</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k"> ASC</span><span class="dl">&quot;</span></span>,&#x000A;      <span class="sy">:limit</span> =&gt; <span class="i">10</span> }.merge!(options)&#x000A;&#x000A;    <span class="iv">@items</span> = <span class="sy"><span class='container'>:category<span class='overlay'></span></span></span>.to_s.camelize.constantize.find(<span class="sy">:all</span>, find_options)&#x000A;&#x000A;    render <span class="sy">:inline</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="k">&lt;%= auto_complete_result @items, '</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">' %&gt;</span><span class="dl">&quot;</span></span>&#x000A;  <span class="r">end</span>&#x000A;<span class="r">end</span></pre></div>
+                  </div>
+                </div>
+                <p>In the code snippet above I&rsquo;ve highlighted the places where the symbol :category appears. You can see that it&rsquo;s used in a few different places, but the most important line is near the bottom: @items = :category.to_s.camelize.constantize&hellip; etc. Let&rsquo;s evaluate each of the method calls on this one line, one at a time. The first call is &ldquo;:category.to_s&rdquo;. The &ldquo;to_s&rdquo; method name means &ldquo;to string&rdquo; and will convert the target object (the object you call to_s on) to a string. This means that the :category symbol will be converted to a string. So now let&rsquo;s display the string &lsquo;category&rsquo; in place and see what we are left with:</p>
+              </div>
+              <div class='code-path-slide'>
+                <h3>
+                  evaluate :category.to_s
+                </h3>
+                <div class='frame'>
+                  <div class="CodeRay">
+                    <div class="code"><pre><span class="r">def</span> <span class="fu">auto_complete_for</span>(<span class="sy">:category</span>, method, options = {})&#x000A;  define_method(<span class="s"><span class="dl">&quot;</span><span class="k">auto_complete_for_</span><span class="il"><span class="idl">#{</span><span class="sy">:category</span><span class="idl">}</span></span><span class="k">_</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="dl">&quot;</span></span>) <span class="r">do</span>&#x000A;    find_options = { &#x000A;      <span class="sy">:conditions</span> =&gt; [&#x000A;                       <span class="s"><span class="dl">&quot;</span><span class="k">LOWER(</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">) LIKE ?</span><span class="dl">&quot;</span></span>,&#x000A;                       <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span> + params[<span class="sy">:category</span>][method].downcase + <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span>&#x000A;                     ],&#x000A;      <span class="sy">:order</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k"> ASC</span><span class="dl">&quot;</span></span>,&#x000A;      <span class="sy">:limit</span> =&gt; <span class="i">10</span> }.merge!(options)&#x000A;&#x000A;    <span class="iv">@items</span> = <span class='container'><span class="s"><span class="dl">'</span><span class="k">category</span><span class="dl">'</span></span><span class='overlay'></span></span>.camelize.constantize.find(<span class="sy">:all</span>, find_options)&#x000A;&#x000A;    render <span class="sy">:inline</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="k">&lt;%= auto_complete_result @items, '</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">' %&gt;</span><span class="dl">&quot;</span></span>&#x000A;  <span class="r">end</span>&#x000A;<span class="r">end</span></pre></div>
+                  </div>
+                </div>
+                <p>You can see &lsquo;category&rdquo; highlighted above where I&rsquo;ve evaluated the to_s method. Now the next method call is &ldquo;camelize&rdquo; &ndash; what does this mean? The <a href="http://api.rubyonrails.org/classes/Inflector.html">camelize method</a> is one of a series of functions that Rails provides in the &ldquo;ActiveSupport&rdquo; gem, one of the components of the Rails framework. It converts the given string to camel case, for example &ldquo;office_code&rdquo; to &ldquo;OfficeCode.&rdquo; As we&rsquo;ll see in a moment, Ruby class names are written using camel case, so this is often very useful for obtaining a class name from a string. In our example, the string &ldquo;category&rdquo; is converted into &ldquo;Category&rdquo; with an upper case &ldquo;C:&rdquo;</p>
+              </div>
+              <div class='code-path-slide'>
+                <h3>
+                  evaluate 'category'.camelize
+                </h3>
+                <div class='frame'>
+                  <div class="CodeRay">
+                    <div class="code"><pre><span class="r">def</span> <span class="fu">auto_complete_for</span>(<span class="sy">:category</span>, method, options = {})&#x000A;  define_method(<span class="s"><span class="dl">&quot;</span><span class="k">auto_complete_for_</span><span class="il"><span class="idl">#{</span><span class="sy">:category</span><span class="idl">}</span></span><span class="k">_</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="dl">&quot;</span></span>) <span class="r">do</span>&#x000A;    find_options = { &#x000A;      <span class="sy">:conditions</span> =&gt; [&#x000A;                       <span class="s"><span class="dl">&quot;</span><span class="k">LOWER(</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">) LIKE ?</span><span class="dl">&quot;</span></span>,&#x000A;                       <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span> + params[<span class="sy">:category</span>][method].downcase + <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span>&#x000A;                     ],&#x000A;      <span class="sy">:order</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k"> ASC</span><span class="dl">&quot;</span></span>,&#x000A;      <span class="sy">:limit</span> =&gt; <span class="i">10</span> }.merge!(options)&#x000A;&#x000A;    <span class="iv">@items</span> = <span class="s"><span class='container'><span class="dl">'</span><span class="k">Category</span><span class="dl">'</span><span class='overlay'></span></span></span>.constantize.find(<span class="sy">:all</span>, find_options)&#x000A;&#x000A;    render <span class="sy">:inline</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="k">&lt;%= auto_complete_result @items, '</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">' %&gt;</span><span class="dl">&quot;</span></span>&#x000A;  <span class="r">end</span>&#x000A;<span class="r">end</span></pre></div>
+                  </div>
+                </div>
+                <p>Now let&rsquo;s take a look at the next method call on that same line of code: <a href="http://api.rubyonrails.org/classes/Inflector.html">&ldquo;constantize.&rdquo;</a> This converts a string into an actual Ruby constant, and returns an error if that constant doesn&rsquo;t exist. In our example, the string &ldquo;Category&rdquo; is converted into the Ruby class Category:</p>
+              </div>
+            </div>
+          </div>
+          </div>
+
           
           <p>
             What strikes me about Pat's manner of presentation is it's easy to see the changes every step along the way as Ruby evaluates some code. Because most of the code remains stationary as you go through each slide of Pat's tutorial, you can easily detect the changes visually. If all the code chunks were presented simultaneously and you had to scroll through them, this just wouldn't be possible.
@@ -71,68 +127,6 @@
         <div class="slide">
           <h3>Looking Forward</h3>
           <p></p>
-        </div>
-      </div>
-    </div>
-    </div>
-    <div id="code-path">
-      <h2>The Code Path</h2>
-      <div id="code-path-slides">
-        <div id='track'>
-        <div class='code-path-slide'>
-          <h3>
-            Original Code
-          </h3>
-          <div id='frame'>
-            <div class="CodeRay">
-              <div class="code"><pre><span class="r">def</span> <span class="fu">auto_complete_for</span>(object, method, options = {})&#x000A;  define_method(<span class="s"><span class="dl">&quot;</span><span class="k">auto_complete_for_</span><span class="il"><span class="idl">#{</span>object<span class="idl">}</span></span><span class="k">_</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="dl">&quot;</span></span>) <span class="r">do</span>&#x000A;    find_options = { &#x000A;      <span class="sy">:conditions</span> =&gt; [&#x000A;                       <span class="s"><span class="dl">&quot;</span><span class="k">LOWER(</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">) LIKE ?</span><span class="dl">&quot;</span></span>,&#x000A;                       <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span> + params[object][method].downcase + <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span>&#x000A;                     ],&#x000A;      <span class="sy">:order</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k"> ASC</span><span class="dl">&quot;</span></span>,&#x000A;      <span class="sy">:limit</span> =&gt; <span class="i">10</span> }.merge!(options)&#x000A;&#x000A;    <span class="iv">@items</span> = object.to_s.camelize.constantize.find(<span class="sy">:all</span>, find_options)&#x000A;&#x000A;    render <span class="sy">:inline</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="k">&lt;%= auto_complete_result @items, '</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">' %&gt;</span><span class="dl">&quot;</span></span>&#x000A;  <span class="r">end</span>&#x000A;<span class="r">end</span></pre></div>
-            </div>
-          </div>
-          <p>
-            <p>You can find this code in the <a href="http://github.com/rails/auto_complete/blob/master/lib/auto_complete.rb">lib/auto_complete.rb file inside the rails/auto_complete repository on github</a>. So what the heck does all of this mean? Let&rsquo;s take a step-by-step look at this code, and see if we can figure it out.</p>
-            <p>To get started, let&rsquo;s use the category/name example I used in my last article, and also that Ryan Bates used in his <a href="http://railscasts.com/episodes/102-auto-complete-association">Auto-Complete Association screencast</a> on the auto_complete plugin:</p>
-            <pre>auto_complete_for :category, :name</pre>
-            <p>Here we are passing &ldquo;:category&rdquo; into auto_complete_for as the value for &ldquo;object,&rdquo; and &ldquo;:name&rdquo; as the value for &ldquo;method.&rdquo; Now let&rsquo;s repeat the auto_complete_for code, but substitute object with :category:</p>
-          </p>
-        </div>
-        <div class='code-path-slide'>
-          <h3>
-            Replace object with :category
-          </h3>
-          <div id='frame'>
-            <div class="CodeRay">
-              <div class="code"><pre><span class="r">def</span> <span class="fu">auto_complete_for</span>(<span class="sy"><span class='container'>:category<span class='overlay'></span></span></span>, method, options = {})&#x000A;  define_method(<span class="s"><span class="dl">&quot;</span><span class="k">auto_complete_for_</span><span class="il"><span class="idl">#{</span><span class="sy"><span class='container'>:category<span class='overlay'></span></span></span><span class="idl">}</span></span><span class="k">_</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="dl">&quot;</span></span>) <span class="r">do</span>&#x000A;    find_options = { &#x000A;      <span class="sy">:conditions</span> =&gt; [&#x000A;                       <span class="s"><span class="dl">&quot;</span><span class="k">LOWER(</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">) LIKE ?</span><span class="dl">&quot;</span></span>,&#x000A;                       <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span> + params[<span class="sy"><span class='container'>:category<span class='overlay'></span></span></span>][method].downcase + <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span>&#x000A;                     ],&#x000A;      <span class="sy">:order</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k"> ASC</span><span class="dl">&quot;</span></span>,&#x000A;      <span class="sy">:limit</span> =&gt; <span class="i">10</span> }.merge!(options)&#x000A;&#x000A;    <span class="iv">@items</span> = <span class="sy"><span class='container'>:category<span class='overlay'></span></span></span>.to_s.camelize.constantize.find(<span class="sy">:all</span>, find_options)&#x000A;&#x000A;    render <span class="sy">:inline</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="k">&lt;%= auto_complete_result @items, '</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">' %&gt;</span><span class="dl">&quot;</span></span>&#x000A;  <span class="r">end</span>&#x000A;<span class="r">end</span></pre></div>
-            </div>
-          </div>
-          <p>
-            <p>In the code snippet above I&rsquo;ve highlighted the places where the symbol :category appears. You can see that it&rsquo;s used in a few different places, but the most important line is near the bottom: @items = :category.to_s.camelize.constantize&hellip; etc. Let&rsquo;s evaluate each of the method calls on this one line, one at a time. The first call is &ldquo;:category.to_s&rdquo;. The &ldquo;to_s&rdquo; method name means &ldquo;to string&rdquo; and will convert the target object (the object you call to_s on) to a string. This means that the :category symbol will be converted to a string. So now let&rsquo;s display the string &lsquo;category&rsquo; in place and see what we are left with:</p>
-          </p>
-        </div>
-        <div class='code-path-slide'>
-          <h3>
-            evaluate :category.to_s
-          </h3>
-          <div id='frame'>
-            <div class="CodeRay">
-              <div class="code"><pre><span class="r">def</span> <span class="fu">auto_complete_for</span>(<span class="sy">:category</span>, method, options = {})&#x000A;  define_method(<span class="s"><span class="dl">&quot;</span><span class="k">auto_complete_for_</span><span class="il"><span class="idl">#{</span><span class="sy">:category</span><span class="idl">}</span></span><span class="k">_</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="dl">&quot;</span></span>) <span class="r">do</span>&#x000A;    find_options = { &#x000A;      <span class="sy">:conditions</span> =&gt; [&#x000A;                       <span class="s"><span class="dl">&quot;</span><span class="k">LOWER(</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">) LIKE ?</span><span class="dl">&quot;</span></span>,&#x000A;                       <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span> + params[<span class="sy">:category</span>][method].downcase + <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span>&#x000A;                     ],&#x000A;      <span class="sy">:order</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k"> ASC</span><span class="dl">&quot;</span></span>,&#x000A;      <span class="sy">:limit</span> =&gt; <span class="i">10</span> }.merge!(options)&#x000A;&#x000A;    <span class="iv">@items</span> = <span class='container'><span class="s"><span class="dl">'</span><span class="k">category</span><span class="dl">'</span></span><span class='overlay'></span></span>.camelize.constantize.find(<span class="sy">:all</span>, find_options)&#x000A;&#x000A;    render <span class="sy">:inline</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="k">&lt;%= auto_complete_result @items, '</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">' %&gt;</span><span class="dl">&quot;</span></span>&#x000A;  <span class="r">end</span>&#x000A;<span class="r">end</span></pre></div>
-            </div>
-          </div>
-          <p>
-            <p>You can see &lsquo;category&rdquo; highlighted above where I&rsquo;ve evaluated the to_s method. Now the next method call is &ldquo;camelize&rdquo; &ndash; what does this mean? The <a href="http://api.rubyonrails.org/classes/Inflector.html">camelize method</a> is one of a series of functions that Rails provides in the &ldquo;ActiveSupport&rdquo; gem, one of the components of the Rails framework. It converts the given string to camel case, for example &ldquo;office_code&rdquo; to &ldquo;OfficeCode.&rdquo; As we&rsquo;ll see in a moment, Ruby class names are written using camel case, so this is often very useful for obtaining a class name from a string. In our example, the string &ldquo;category&rdquo; is converted into &ldquo;Category&rdquo; with an upper case &ldquo;C:&rdquo;</p>
-          </p>
-        </div>
-        <div class='code-path-slide'>
-          <h3>
-            evaluate 'category'.camelize
-          </h3>
-          <div id='frame'>
-            <div class="CodeRay">
-              <div class="code"><pre><span class="r">def</span> <span class="fu">auto_complete_for</span>(<span class="sy">:category</span>, method, options = {})&#x000A;  define_method(<span class="s"><span class="dl">&quot;</span><span class="k">auto_complete_for_</span><span class="il"><span class="idl">#{</span><span class="sy">:category</span><span class="idl">}</span></span><span class="k">_</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="dl">&quot;</span></span>) <span class="r">do</span>&#x000A;    find_options = { &#x000A;      <span class="sy">:conditions</span> =&gt; [&#x000A;                       <span class="s"><span class="dl">&quot;</span><span class="k">LOWER(</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">) LIKE ?</span><span class="dl">&quot;</span></span>,&#x000A;                       <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span> + params[<span class="sy">:category</span>][method].downcase + <span class="s"><span class="dl">'</span><span class="k">%</span><span class="dl">'</span></span>&#x000A;                     ],&#x000A;      <span class="sy">:order</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k"> ASC</span><span class="dl">&quot;</span></span>,&#x000A;      <span class="sy">:limit</span> =&gt; <span class="i">10</span> }.merge!(options)&#x000A;&#x000A;    <span class="iv">@items</span> = <span class="s"><span class='container'><span class="dl">'</span><span class="k">Category</span><span class="dl">'</span><span class='overlay'></span></span></span>.constantize.find(<span class="sy">:all</span>, find_options)&#x000A;&#x000A;    render <span class="sy">:inline</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="k">&lt;%= auto_complete_result @items, '</span><span class="il"><span class="idl">#{</span>method<span class="idl">}</span></span><span class="k">' %&gt;</span><span class="dl">&quot;</span></span>&#x000A;  <span class="r">end</span>&#x000A;<span class="r">end</span></pre></div>
-            </div>
-          </div>
-          <p>
-            <p>Now let&rsquo;s take a look at the next method call on that same line of code: <a href="http://api.rubyonrails.org/classes/Inflector.html">&ldquo;constantize.&rdquo;</a> This converts a string into an actual Ruby constant, and returns an error if that constant doesn&rsquo;t exist. In our example, the string &ldquo;Category&rdquo; is converted into the Ruby class Category:</p>
-          </p>
         </div>
       </div>
     </div>

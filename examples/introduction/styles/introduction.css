@@ -31,7 +31,7 @@ li.active a {
 }
 
 #slides .slide-header {
-  margin:0 -20px;
+  margin:0;
 }
 
 #code-path-slides {
@@ -58,14 +58,14 @@ li.active a {
 
 .slide-header .previous { 
   float:left;
-  width:380px;
+  width:360px;
   padding:10px;
   display:block;
 }
 
 .slide-header  .next { 
   float: right;
-  width:380px;
+  width:360px;
   padding:10px;
   text-align:right;
   display:block;
@@ -87,17 +87,12 @@ li.active a {
 }
 
 #code-path {
-  margin-top:50px;
-  padding:10px 20px;
+  padding:0px 20px 10px;
   background:#eee;
 }
 
-#code-path .slide-header .previous { 
-  width:360px;
-}
-
-#code-path .slide-header  .next { 
-  width:360px;
+#code-path .slide-header .previous, #code-path .slide-header .next { 
+  width:340px;
 }
 
 /* code ray styles */
@@ -464,7 +459,7 @@ ul.sidebar_list { list-style: none; }
   position: relative;
 }
 
-#frame {
+.frame {
 	width: 600px;
 	position: relative;
 	top: -3px;

@@ -270,12 +270,12 @@ $.fn.electricSlide = function(options){
     function expandAll() {
       slides.show()
       slides.children(settings.slideHeaderSelector).hide()
-      slideContainer.animate({height:$("#track").height()})
+      slideContainer.animate({height:$(".track", slideContainer).height()})
       return false;
     }
     
     function collapseAll() {
-      slides.children(settings.slideHeaderSelector).show()
+      slides.children(settings.slideHeaderSelector, slideContainer).show()
       slides.hide()
       $(slides[0]).show()
       resetDimensions(400)
@@ -321,6 +321,15 @@ $.fn.electricSlide = function(options){
     // Let's turn this off for now - it's a bit unintuitive
     // slideContainer.click(clickMove)
     $(settings.toggleSelector, this).toggle(expandAll, collapseAll)
+    
+    this.electricSlide = {
+      expandAll         : expandAll,
+      collapseAll       : collapseAll,
+      resetDimensions   : resetDimensions,
+      showSlide         : showSlide,
+      showNextSlide     : showNextSlide,
+      showPreviousSlide : showPreviousSlide
+    }
     
   }); // end this.each
   return this;
