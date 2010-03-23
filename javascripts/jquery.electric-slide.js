@@ -15,6 +15,8 @@ $.fn.electricSlide = function(options){
     return true;
   }
   
+  var slideContext;
+  
   // override these settings when you call the electricSlide function
   var settings = {
     slideClass               : "slide",
@@ -236,7 +238,7 @@ $.fn.electricSlide = function(options){
     
     // TODO allow users to provide their own function for generating the toc
     function generateToc() {
-      tocContainer = $(settings.tocContainerSelector)
+      tocContainer = $(settings.tocContainerSelector, slideContext)
 
       tableOfContents = $("<ol class='slide-toc'></ol>")
 
@@ -287,7 +289,7 @@ $.fn.electricSlide = function(options){
         $(this).show();
       }
 
-      this.slideContext    = this;
+      this.slideContext    =  slideContext;
       this.show = settings.showFunction;
       this.hide = settings.hideFunction;
       this.shouldShow  = settings.slideShouldShow;
@@ -298,6 +300,9 @@ $.fn.electricSlide = function(options){
       this.didHide    = settings.slideDidHide;
     })
     
+    // generate the TOC
+    if(settings.buildToc) generateToc();
+    
     // setup dimensions - needs to happen after slides are set up
     // to account for navigation being inserted
     setSlideContainerHeight();
@@ -306,10 +311,6 @@ $.fn.electricSlide = function(options){
     // Let's turn this off for now - it's a bit unintuitive
     // slideContainer.click(clickMove)
     $(settings.toggleSelector, this).toggle(expandAll, collapseAll)
-    
-    // generate the TOC
-    if(settings.buildToc) generateToc();
-    
     
   }); // end this.each
   return this;

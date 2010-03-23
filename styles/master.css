@@ -16,6 +16,10 @@ http://github.com/nakajima/slidedown/blob/master/templates/stylesheets/slides.cs
   display:none;
 }
 
+.show {
+  display:block;
+}
+
 #table-of-contents {
   
 }
