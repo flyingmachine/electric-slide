@@ -32,6 +32,10 @@ li {
   display:none;
 }
 
+.slide-header {
+  background:white;
+}
+
 .slide-header a {
   background:#fff;
 }
