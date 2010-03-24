@@ -68,45 +68,31 @@ $.fn.electricSlide = function(options){
      */
     // Set slide container height
     var maxHeight = 0;
-    var maxTopMargin = 0;
-    var maxBottomMargin = 0;
-    var maxTopPadding = 0;
-    var maxBottomPadding = 0;
-    var maxTopBorder = 0;
-    var maxBottomBorder = 0;
-    var baseHeight = 0;
-
-    function setMaxDimensions(slideElem) {
+    
+    // This function gets called on each slide.
+    // Its purpose is to find the height of the tallest element.
+    // That height is then used to set the height of the slide container
+    // so that the page doesn't jump around when the user navigates the slides.
+    function findMaxHeight(slideElem) {
       var height = $(slideElem).height();
-      if(height > maxHeight) maxHeight = height;
 
-      // margins
       var margins = $(slideElem).margin();
-
       var topMargin = margins.top;
-      if(topMargin > maxTopMargin) maxTopMargin = topMargin;
-
       var bottomMargin = margins.bottom;
-      if(bottomMargin > maxBottomMargin) maxBottomMargin = bottomMargin;
 
-      // padding
       var padding = $(slideElem).padding();
-
       var topPadding = padding.top;
-      if(topPadding > maxTopPadding) maxTopPadding = topPadding;
-
       var bottomPadding = padding.bottom;
-      if(bottomPadding > maxBottomPadding) maxBottomPadding = bottomPadding;
-
-
-      // border
+      
       var border = $(slideElem).border();
-
       var topBorder = border.top;
-      if(topBorder > maxTopBorder) maxTopBorder = topBorder;
-
       var bottomBorder = border.bottom;
-      if(bottomBorder > maxBottomBorder) maxBottomBorder = bottomBorder;
+      
+      var totalHeight = height + topMargin + 
+        bottomMargin + topPadding + 
+        bottomPadding + topBorder + bottomBorder;
+      
+      if(totalHeight > maxHeight) maxHeight = totalHeight;
     }
 
     function resetDimensions(animationDuration) {
@@ -118,18 +104,17 @@ $.fn.electricSlide = function(options){
       maxTopBorder = 0;
       maxBottomBorder = 0;
       slides.each(function(){
-        $(this).width(slideWidth());
-        setMaxDimensions(this);
+        findMaxHeight(this);
       })
       setSlideContainerHeight(animationDuration);
     }
     
     function slideWidth() {
-      return slideContainer.width()
+      return slideContainer.width();
     }
     
     function slideContainerHeight() {
-      return maxHeight + maxTopMargin + maxBottomMargin + maxTopPadding + maxBottomPadding + maxTopBorder + maxBottomBorder
+      return maxHeight;
     }
     
     function setSlideContainerHeight(animationDuration) {
@@ -283,8 +268,7 @@ $.fn.electricSlide = function(options){
       // insert an anchor
       
       if(settings.shouldInsertHeader) insertHeader(i, this);
-      $(this).width(slideWidth());
-      setMaxDimensions(this);
+      findMaxHeight(this);
 
       if(i == 0) {
         $(this).show();
