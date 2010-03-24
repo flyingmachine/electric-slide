@@ -15,26 +15,26 @@
 	    $(function(){
 	      function secondSlideHighlights(oldSlidePosition, newSlidePosition) {
 	        if(newSlidePosition == 1) {
-	          $(this.slideContext.electricSlide.settings.tocContainerSelector).addClass("highlight")
-	          $(this.slideContext.electricSlide.settings.slideHeaderSelector).addClass("highlight")
+	          $(this.slideContext.electricSlide.settings.tocContainerSelector + " , " + 
+	            this.slideContext.electricSlide.settings.slideHeaderSelector).addClass("highlight")
 	        }
 	      }
 	      
 	      function removeSecondSlideHighlights(oldSlidePosition, newSlidePosition) {
 	        if(oldSlidePosition == 1) {
-	          $(this.slideContext.electricSlide.settings.tocContainerSelector).removeClass("highlight")
-	          $(this.slideContext.electricSlide.settings.slideHeaderSelector).removeClass("highlight")
+	          $(this.slideContext.electricSlide.settings.tocContainerSelector + " , " +
+  	          this.slideContext.electricSlide.settings.slideHeaderSelector).removeClass("highlight")
 	        }
 	      }
 	      
         $("#slides").electricSlide({
           slideDidShow: secondSlideHighlights,
           slideDidHide: removeSecondSlideHighlights
-         });
+        });
          
         $("#code-path-slides").electricSlide({
           slideClass: "code-path-slide", buildToc:false
-         })
+        })
         $("#slides")[0].electricSlide.resetDimensions();
       })
 	  </script>

@@ -20,20 +20,20 @@ $.fn.electricSlide = function(options){
     slideClass               : "slide",
 
     // header/navigation
-    shouldInsertHeader       : true,
-    slideHeaderClass         : "slide-header",
-    titleSelector            : "h3",
+    shouldInsertHeader   : true,
+    slideHeaderClass     : "slide-header",
+    titleSelector        : "h3",
     // "next/previous" text is replaced with title if there is one
     // href is replaced with "#slide-i", where i is slide's position
-    nextHtml                 : "<a href='#' class='slide-navigation next'>next</a>",
-    previousHtml             : "<a href='#' class='slide-navigation previous'>previous</a>",
-    
-    buildToc                 : true,
-    tocContainerSelector     : "#table-of-contents",
+    nextHtml             : "<a href='#' class='slide-navigation next'>next</a>",
+    previousHtml         : "<a href='#' class='slide-navigation previous'>previous</a>",
+                         
+    buildToc             : true,
+    tocContainerSelector : "#table-of-contents",
 
     // show/hide 
-    showFunction             : function(){$(this).show()},
-    hideFunction             : function(){$(this).hide()},
+    showFunction         : function(){$(this).show()},
+    hideFunction         : function(){$(this).hide()},
 
     // callbacks
     slideShouldShow      : trueSlideFunction, 
@@ -45,7 +45,7 @@ $.fn.electricSlide = function(options){
     
     // When clicked, this will toggle presentation styles
     // The toggle element must be within the element containing all slides
-    toggleSelector           : ".slide-toggle"
+    toggleSelector       : ".slide-toggle"
   }
 
   $.extend(settings, options)
