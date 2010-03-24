@@ -75,13 +75,6 @@ $.fn.electricSlide = function(options){
     var maxTopBorder = 0;
     var maxBottomBorder = 0;
     var baseHeight = 0;
-    
-    function setBaseHeight() {
-      var currentHeight = slideContainer.height();
-      setMaxDimensions(slides[0]);
-      var firstSlideHeight = slideContainerHeight();
-      baseHeight = currentHeight - firstSlideHeight;
-    }
 
     function setMaxDimensions(slideElem) {
       var height = $(slideElem).height();
@@ -127,8 +120,8 @@ $.fn.electricSlide = function(options){
       slides.each(function(){
         $(this).width(slideWidth());
         setMaxDimensions(this);
-        setSlideContainerHeight(animationDuration);
       })
+      setSlideContainerHeight(animationDuration);
     }
     
     function slideWidth() {
@@ -136,7 +129,7 @@ $.fn.electricSlide = function(options){
     }
     
     function slideContainerHeight() {
-      return baseHeight + maxHeight + maxTopMargin + maxBottomMargin + maxTopPadding + maxBottomPadding + maxTopBorder + maxBottomBorder
+      return maxHeight + maxTopMargin + maxBottomMargin + maxTopPadding + maxBottomPadding + maxTopBorder + maxBottomBorder
     }
     
     function setSlideContainerHeight(animationDuration) {
@@ -314,7 +307,6 @@ $.fn.electricSlide = function(options){
     
     // setup dimensions - needs to happen after slides are set up
     // to account for navigation being inserted
-    setBaseHeight();
     setSlideContainerHeight();
     $(window).resize(resetDimensions)
     
