@@ -76,6 +76,10 @@ li.active a {
   left:0;
 }
 
+#table-of-contents li {
+  padding:0 10px 0 0;
+}
+
 
 #wrapper {
   width:800px;
@@ -93,6 +97,19 @@ li.active a {
 
 #code-path .slide-header .previous, #code-path .slide-header .next { 
   width:340px;
+}
+
+.highlight {
+  background:#fff;
+}
+
+#slides .slide-header.highlight, #slides .slide-header.highlight a {
+  background:#a7a697;
+  color:#fff;
+}
+
+#slides .slide-header.highlight a:hover {
+  background:#6A909F;
 }
 
 /* code ray styles */

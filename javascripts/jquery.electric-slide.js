@@ -15,8 +15,6 @@ $.fn.electricSlide = function(options){
     return true;
   }
   
-  var slideContext;
-  
   // override these settings when you call the electricSlide function
   var settings = {
     slideClass               : "slide",
@@ -38,12 +36,12 @@ $.fn.electricSlide = function(options){
     hideFunction             : function(){$(this).hide()},
 
     // callbacks
-    slideShouldShow      : trueSlideFunction, // allows you to prevent the slide from losing focus; not sure if "getFocus" should be "hide"
+    slideShouldShow      : trueSlideFunction, 
     slideWillShow        : trueSlideFunction, // setup the slide before it appears.. or something
     slideDidShow         : trueSlideFunction, // do stuff with the slide after it appears
-    slideShouldHide     : trueSlideFunction,
-    slideWillHide       : trueSlideFunction,
-    slideDidHide        : trueSlideFunction,
+    slideShouldHide      : trueSlideFunction, // allows you to prevent the slide from being hidden; useful for validation
+    slideWillHide        : trueSlideFunction,
+    slideDidHide         : trueSlideFunction,
     
     // When clicked, this will toggle presentation styles
     // The toggle element must be within the element containing all slides
@@ -55,10 +53,11 @@ $.fn.electricSlide = function(options){
   settings.slideHeaderSelector = "." + settings.slideHeaderClass
   
   this.each(function(){
-    var slideContainer = $(this);
-    var slides = $(settings.slideSelector, slideContainer);
+    var slideContainerElem   = this;
+    var slideContainer       = $(this);
+    var slides               = $(settings.slideSelector, slideContainer);
     var currentSlidePosition = 0;
-    var titles = $(settings.slideSelector + " > " + settings.titleSelector);
+    var titles               = $(settings.slideSelector + " > " + settings.titleSelector);
     var tocContainer; // table of contents container
     var tableOfContents;
     
@@ -274,7 +273,7 @@ $.fn.electricSlide = function(options){
         $(this).show();
       }
 
-      this.slideContext = slideContext;
+      this.slideContext = slideContainerElem;
       this.show         = settings.showFunction;
       this.hide         = settings.hideFunction;
       this.shouldShow   = settings.slideShouldShow;
@@ -299,6 +298,8 @@ $.fn.electricSlide = function(options){
     $(settings.toggleSelector, this).toggle(expandAll, collapseAll)
     
     this.electricSlide = {
+      slides            : slides,
+      settings          : settings,
       expandAll         : expandAll,
       collapseAll       : collapseAll,
       resetDimensions   : resetDimensions,

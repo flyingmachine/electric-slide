@@ -13,10 +13,30 @@
 	  <link rel="stylesheet" href="styles/introduction.css" type="text/css" media="screen" charset="utf-8">
 	  <script type="text/javascript" charset="utf-8">
 	    $(function(){
-         $("#slides").electricSlide();
-         $("#code-path-slides").electricSlide({slideClass: "code-path-slide", buildToc:false})
-         $("#slides")[0].electricSlide.resetDimensions();
-       })
+	      function secondSlideHighlights(oldSlidePosition, newSlidePosition) {
+	        if(newSlidePosition == 1) {
+	          $(this.slideContext.electricSlide.settings.tocContainerSelector).addClass("highlight")
+	          $(this.slideContext.electricSlide.settings.slideHeaderSelector).addClass("highlight")
+	        }
+	      }
+	      
+	      function removeSecondSlideHighlights(oldSlidePosition, newSlidePosition) {
+	        if(oldSlidePosition == 1) {
+	          $(this.slideContext.electricSlide.settings.tocContainerSelector).removeClass("highlight")
+	          $(this.slideContext.electricSlide.settings.slideHeaderSelector).removeClass("highlight")
+	        }
+	      }
+	      
+        $("#slides").electricSlide({
+          slideDidShow: secondSlideHighlights,
+          slideDidHide: removeSecondSlideHighlights
+         });
+         
+        $("#code-path-slides").electricSlide({
+          slideClass: "code-path-slide", buildToc:false
+         })
+        $("#slides")[0].electricSlide.resetDimensions();
+      })
 	  </script>
 </head>
 <body>
@@ -115,7 +135,9 @@
             <li><strong>Make the library extensible.</strong> As much as possible, I want users to be able to "disagree" with the assumptions in Electric Slide without having to change the source.</li>
           </ul>
           
-          <p>So far, I think Electric Slide is living up to its purpose pretty well. There's still more work to be done, and any help is welcome :)</p>
+          <p>
+            This last point is probably the most fun and the least obvious.
+          </p>
                     
         </div>
     
