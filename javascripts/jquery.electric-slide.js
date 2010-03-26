@@ -5,10 +5,9 @@ $.fn.electricSlide = function(options){
     In all of the functions defined in settings,
     "this" refers to the slide element.
 
-    Each slide element has a "slideContext" attribute
-    which you can use to refer to anything defined here.
-    
-    The "slideContext" is just the the slide container element
+    Each slide element has a "electricSlide" attribute
+    which you can use to refer to settings, variables, and
+    functions defined below. See line 266.
   */
   // dummy function; is this necessary?
   function trueSlideFunction(oldSlidePosition, newSlidePosition){
@@ -262,6 +261,18 @@ $.fn.electricSlide = function(options){
     /***
      * Alter elements - create an electric slide! Yeah!
      */
+     var electricSlide = {
+        slides            : slides,
+        settings          : settings,
+        expandAll         : expandAll,
+        collapseAll       : collapseAll,
+        resetDimensions   : resetDimensions,
+        showSlide         : showSlide,
+        showNextSlide     : showNextSlide,
+        showPreviousSlide : showPreviousSlide
+      };
+     
+     this.electricSlide = electricSlide;
     // setup slides
     slides.each(function(i){
       // insert an anchor
@@ -273,15 +284,15 @@ $.fn.electricSlide = function(options){
         $(this).show();
       }
 
-      this.slideContext = slideContainerElem;
-      this.show         = settings.showFunction;
-      this.hide         = settings.hideFunction;
-      this.shouldShow   = settings.slideShouldShow;
-      this.willShow     = settings.slideWillShow;
-      this.didShow      = settings.slideDidShow;
-      this.shouldHide   = settings.slideShouldHide;
-      this.willHide     = settings.slideWillHide;
-      this.didHide      = settings.slideDidHide;
+      this.electricSlide = electricSlide;
+      this.show          = settings.showFunction;
+      this.hide          = settings.hideFunction;
+      this.shouldShow    = settings.slideShouldShow;
+      this.willShow      = settings.slideWillShow;
+      this.didShow       = settings.slideDidShow;
+      this.shouldHide    = settings.slideShouldHide;
+      this.willHide      = settings.slideWillHide;
+      this.didHide       = settings.slideDidHide;
     })
     
     // generate the TOC
@@ -296,17 +307,6 @@ $.fn.electricSlide = function(options){
     // Let's turn this off for now - it's a bit unintuitive
     // slideContainer.click(clickMove)
     $(settings.toggleSelector, this).toggle(expandAll, collapseAll)
-    
-    this.electricSlide = {
-      slides            : slides,
-      settings          : settings,
-      expandAll         : expandAll,
-      collapseAll       : collapseAll,
-      resetDimensions   : resetDimensions,
-      showSlide         : showSlide,
-      showNextSlide     : showNextSlide,
-      showPreviousSlide : showPreviousSlide
-    }
     
   }); // end this.each
   return this;

@@ -15,15 +15,15 @@
 	    $(function(){
 	      function secondSlideHighlights(oldSlidePosition, newSlidePosition) {
 	        if(newSlidePosition == 1) {
-	          $(this.slideContext.electricSlide.settings.tocContainerSelector + " , " + 
-	            this.slideContext.electricSlide.settings.slideHeaderSelector).addClass("highlight")
+	          $(this.electricSlide.settings.tocContainerSelector + " , " + 
+	            this.electricSlide.settings.slideHeaderSelector).addClass("highlight")
 	        }
 	      }
 	      
 	      function removeSecondSlideHighlights(oldSlidePosition, newSlidePosition) {
 	        if(oldSlidePosition == 1) {
-	          $(this.slideContext.electricSlide.settings.tocContainerSelector + " , " +
-  	          this.slideContext.electricSlide.settings.slideHeaderSelector).removeClass("highlight")
+	          $(this.electricSlide.settings.tocContainerSelector + " , " +
+  	          this.electricSlide.settings.slideHeaderSelector).removeClass("highlight")
 	        }
 	      }
 	      
