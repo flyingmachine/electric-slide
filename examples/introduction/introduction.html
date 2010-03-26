@@ -5,40 +5,40 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>An Introduction to Electric Slide</title>
-	  <script src="../../javascripts/jquery.js" type="text/javascript"></script>
-	  <script src="../../javascripts/jquery-ui.js" type="text/javascript"></script>
-	  <script src="../../javascripts/jquery.sizes.js" type="text/javascript"></script>
-	  <script src="../../javascripts/jquery.electric-slide.js" type="text/javascript"></script>
-	  <link rel="stylesheet" href="../../styles/master.css" type="text/css" media="screen" charset="utf-8">
-	  <link rel="stylesheet" href="styles/introduction.css" type="text/css" media="screen" charset="utf-8">
-	  <link rel="stylesheet" href="styles/coderay.css" type="text/css" media="screen" charset="utf-8">
-	  <script type="text/javascript" charset="utf-8">
-	    $(function(){
-	      function secondSlideHighlights(oldSlidePosition, newSlidePosition) {
-	        if(newSlidePosition == 1) {
-	          $(this.electricSlide.settings.tocContainerSelector + " , " + 
-	            this.electricSlide.settings.slideHeaderSelector).addClass("highlight")
-	        }
-	      }
-	      
-	      function removeSecondSlideHighlights(oldSlidePosition, newSlidePosition) {
-	        if(oldSlidePosition == 1) {
-	          $(this.electricSlide.settings.tocContainerSelector + " , " +
-  	          this.electricSlide.settings.slideHeaderSelector).removeClass("highlight")
-	        }
-	      }
-	      
-        $("#slides").electricSlide({
-          slideDidShow: secondSlideHighlights,
-          slideDidHide: removeSecondSlideHighlights
-        });
-         
-        $("#code-path-slides").electricSlide({
-          slideClass: "code-path-slide", buildToc:false
-        })
-        $("#slides")[0].electricSlide.resetDimensions();
+  <script src="../../javascripts/jquery.js" type="text/javascript"></script>
+  <script src="../../javascripts/jquery-ui.js" type="text/javascript"></script>
+  <script src="../../javascripts/jquery.sizes.js" type="text/javascript"></script>
+  <script src="../../javascripts/jquery.electric-slide.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="../../styles/master.css" type="text/css" media="screen" charset="utf-8">
+  <link rel="stylesheet" href="styles/introduction.css" type="text/css" media="screen" charset="utf-8">
+  <link rel="stylesheet" href="styles/coderay.css" type="text/css" media="screen" charset="utf-8">
+  <script type="text/javascript" charset="utf-8">
+    $(function(){
+      function secondSlideHighlights(oldSlidePosition, newSlidePosition) {
+        if(newSlidePosition == 1) {
+          $(this.electricSlide.settings.tocContainerSelector + " , " + 
+            this.electricSlide.settings.slideHeaderSelector).addClass("highlight")
+        }
+      }
+      
+      function removeSecondSlideHighlights(oldSlidePosition, newSlidePosition) {
+        if(oldSlidePosition == 1) {
+          $(this.electricSlide.settings.tocContainerSelector + " , " +
+	          this.electricSlide.settings.slideHeaderSelector).removeClass("highlight")
+        }
+      }
+      
+      $("#slides").electricSlide({
+        slideDidShow: secondSlideHighlights,
+        slideDidHide: removeSecondSlideHighlights
+      });
+       
+      $("#code-path-slides").electricSlide({
+        slideClass: "code-path-slide", buildToc:false
       })
-	  </script>
+      $("#slides")[0].electricSlide.resetDimensions();
+    })
+  </script>
 </head>
 <body>
   <div id="wrapper">
@@ -170,7 +170,56 @@
     
         <div class="slide">
           <h3>Get Started</h3>
-          <p></p>
+
+<div class="CodeRay">
+  <div class="code"><pre><span class="dt">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;
+   &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</span>
+<span class="ta">&lt;html</span> <span class="an">lang</span>=<span class="s"><span class="dl">&quot;</span><span class="k">en</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span>
+<span class="ta">&lt;head&gt;</span>
+        <span class="ta">&lt;meta</span> <span class="an">http-equiv</span>=<span class="s"><span class="dl">&quot;</span><span class="k">Content-Type</span><span class="dl">&quot;</span></span> <span class="an">content</span>=<span class="s"><span class="dl">&quot;</span><span class="k">text/html; charset=utf-8</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span>
+        <span class="ta">&lt;title&gt;</span>An Introduction to Electric Slide<span class="ta">&lt;/title&gt;</span>
+  <span class="ta">&lt;script</span> <span class="an">src</span>=<span class="s"><span class="dl">&quot;</span><span class="k">javascripts/jquery.js</span><span class="dl">&quot;</span></span> <span class="an">type</span>=<span class="s"><span class="dl">&quot;</span><span class="k">text/javascript</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span><span class="ta">&lt;/script&gt;</span>
+  <span class="ta">&lt;script</span> <span class="an">src</span>=<span class="s"><span class="dl">&quot;</span><span class="k">javascripts/jquery-ui.js</span><span class="dl">&quot;</span></span> <span class="an">type</span>=<span class="s"><span class="dl">&quot;</span><span class="k">text/javascript</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span><span class="ta">&lt;/script&gt;</span>
+  <span class="ta">&lt;script</span> <span class="an">src</span>=<span class="s"><span class="dl">&quot;</span><span class="k">javascripts/jquery.sizes.js</span><span class="dl">&quot;</span></span> <span class="an">type</span>=<span class="s"><span class="dl">&quot;</span><span class="k">text/javascript</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span><span class="ta">&lt;/script&gt;</span>
+  <span class="ta">&lt;script</span> <span class="an">src</span>=<span class="s"><span class="dl">&quot;</span><span class="k">javascripts/jquery.electric-slide.js</span><span class="dl">&quot;</span></span> <span class="an">type</span>=<span class="s"><span class="dl">&quot;</span><span class="k">text/javascript</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span><span class="ta">&lt;/script&gt;</span>
+  <span class="ta">&lt;link</span> <span class="an">rel</span>=<span class="s"><span class="dl">&quot;</span><span class="k">stylesheet</span><span class="dl">&quot;</span></span> <span class="an">href</span>=<span class="s"><span class="dl">&quot;</span><span class="k">styles/master.css</span><span class="dl">&quot;</span></span> <span class="an">type</span>=<span class="s"><span class="dl">&quot;</span><span class="k">text/css</span><span class="dl">&quot;</span></span> <span class="an">media</span>=<span class="s"><span class="dl">&quot;</span><span class="k">screen</span><span class="dl">&quot;</span></span> <span class="an">charset</span>=<span class="s"><span class="dl">&quot;</span><span class="k">utf-8</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span>
+  <span class="ta">&lt;script</span> <span class="an">type</span>=<span class="s"><span class="dl">&quot;</span><span class="k">text/javascript</span><span class="dl">&quot;</span></span> <span class="an">charset</span>=<span class="s"><span class="dl">&quot;</span><span class="k">utf-8</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span>
+    $(function(){
+      $(&quot;#slides&quot;).electricSlide();
+    })
+  <span class="ta">&lt;/script&gt;</span>
+<span class="ta">&lt;/head&gt;</span>
+<span class="ta">&lt;body&gt;</span>
+  <span class="ta">&lt;div</span> <span class="an">id</span>=<span class="s"><span class="dl">&quot;</span><span class="k">slides</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span>
+    <span class="ta">&lt;div</span> <span class="an">class</span>=<span class="s"><span class="dl">&quot;</span><span class="k">track</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span>
+      <span class="ta">&lt;div</span> <span class="an">class</span>=<span class="s"><span class="dl">&quot;</span><span class="k">slide</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span>
+        <span class="ta">&lt;h3&gt;</span>What Up, World<span class="ta">&lt;/h3&gt;</span>
+        <span class="ta">&lt;p&gt;</span>This is a slide<span class="ta">&lt;/p&gt;</span>
+      <span class="ta">&lt;/div&gt;</span>
+      <span class="ta">&lt;div</span> <span class="an">class</span>=<span class="s"><span class="dl">&quot;</span><span class="k">slide</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span>
+        <span class="ta">&lt;h3&gt;</span>How You Doin<span class="ta">&lt;/h3&gt;</span>
+        <span class="ta">&lt;p&gt;</span>Here's another slide<span class="ta">&lt;/p&gt;</span>
+      <span class="ta">&lt;/div&gt;</span>
+      <span class="ta">&lt;div</span> <span class="an">class</span>=<span class="s"><span class="dl">&quot;</span><span class="k">slide</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span>
+        <span class="ta">&lt;h3&gt;</span>Imaginatively Named Slide: #3<span class="ta">&lt;/h3&gt;</span>
+        <span class="ta">&lt;p&gt;</span>You are reeling from the magnitude of imagination.<span class="ta">&lt;/p&gt;</span>
+      <span class="ta">&lt;/div&gt;</span>
+    <span class="ta">&lt;/div&gt;</span>
+  <span class="ta">&lt;/div&gt;</span>
+<span class="ta">&lt;/body&gt;</span>
+<span class="ta">&lt;/html&gt;</span></pre></div>
+</div>
+
+          <p>
+            Above is a skeleton which you can use to get started. You'll find the same contents in "skeleton.html" within the root directory of this project. You could even just start editing that file if you want to mess around and get your hands dirty with electric slide.
+          </p>
+          <p>
+            One thing to note is that the "track" element isn't really necessary unless you plan on using the expand/collapse functionality, which doesn't work correctly right now.
+          </p>
+          <p>
+            You might want to start by stealing some of the styles within "examples/introduction/styles/introduction.css", as the skeleton styling is pretty bare bones.
+          </p>
+
         </div>
     
         <div class="slide">
