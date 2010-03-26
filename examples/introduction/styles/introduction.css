@@ -18,7 +18,7 @@ a:hover {
   color:#60828f;
 }
 
-li {
+.long li, #table-of-contents li {
   margin-bottom:1em;
 }
 

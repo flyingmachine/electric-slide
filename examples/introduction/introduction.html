@@ -129,15 +129,39 @@
             So where does Electric Slide come in? The original intention was to do the following:
           </p>
           
-          <ul>
+          <ul class="long">
             <li><strong>Allow all slides to be present on one page.</strong> This has the obvious advantage that the user won't have to wait for every new page to load. A side-effect is that it's easier to visually detect changes between slides.</li>
             <li><strong>Automatically generate navigation for the slides.</strong> One drawback I saw to Pat's presentation was that there was no table of contents. Users didn't have any idea how many more slides they'd have to go through before they were done. (As if they'd want to finish, anyway!) Electric Slide can automatically generate a TOC, as well as "next" and "previous" links. All such navigation you see on this page was automatically generated.</li>
             <li><strong>Make the library extensible.</strong> As much as possible, I want users to be able to "disagree" with the assumptions in Electric Slide without having to change the source.</li>
           </ul>
           
           <p>
-            This last point is probably the most fun and the least obvious.
+            This last point is probably the most fun and the least obvious. Electric Slide allows you to specify the functions for showing and hiding slides, so you can animate this process if you want. It also provides the following callbacks:
           </p>
+          
+          <ul>
+            <li>slideShouldShow</li>
+            <li>slideWillShow</li>
+            <li>slideDidShow</li>
+            <li>slideShouldHide</li>
+            <li>slideWillHide</li>
+            <li>slideDidHide</li>
+          </ul>
+          
+          <p>
+            You could use these callbacks to do things like perform validation on a form or start/stop an animation. If a "should" method returns false, it will prevent a slide from either showing or hiding.
+          </p>
+          
+          <p>
+            For this introduction, I've written callbacks that change the background colors for the Table of Contents to the left and the next/previous navigation above. Try navigating away from this slide and back to it to see the colors change.
+          </p>
+          
+          <p>Here are a few more features that may not be obvious:</p>
+          
+          <ul>
+            <li>Static Height. The height of the element containing the slides is set automatically. This prevents the rest of the page from jumping around as the user views slides of different heights.</li>
+            <li>Decent documentation. At least, I think it's decent. If you find something hard to understand please <a href="mailto:daniel@flyingmachinestudios.com">email me</a> and let me know.</li>
+          </ul>
                     
         </div>
     
