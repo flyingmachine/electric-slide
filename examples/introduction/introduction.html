@@ -11,6 +11,7 @@
 	  <script src="../../javascripts/jquery.electric-slide.js" type="text/javascript"></script>
 	  <link rel="stylesheet" href="../../styles/master.css" type="text/css" media="screen" charset="utf-8">
 	  <link rel="stylesheet" href="styles/introduction.css" type="text/css" media="screen" charset="utf-8">
+	  <link rel="stylesheet" href="styles/coderay.css" type="text/css" media="screen" charset="utf-8">
 	  <script type="text/javascript" charset="utf-8">
 	    $(function(){
 	      function secondSlideHighlights(oldSlidePosition, newSlidePosition) {
@@ -55,7 +56,7 @@
           </p>
           
           <p>
-            Pat was nice enough to use Electric Slide on his code path. You can see the result below. There's a <a href="../codepath/codepath.html">larger example</a> in the examples directory of this project.
+            Pat was nice enough to use Electric Slide on his code path for this introduction. You can see the result below. There's a <a href="../codepath/codepath.html">larger example</a> in the examples directory of this project.
           </p>
 
           <div id="code-path">
@@ -123,7 +124,7 @@
         </div>
       
         <div class="slide">
-          <h3>Why Electric Slide</h3>
+          <h3>Features</h3>
           
           <p>
             So where does Electric Slide come in? The original intention was to do the following:
@@ -156,17 +157,19 @@
             For this introduction, I've written callbacks that change the background colors for the Table of Contents to the left and the next/previous navigation above. Try navigating away from this slide and back to it to see the colors change.
           </p>
           
-          <p>Here are a few more features that may not be obvious:</p>
+          <p>A few more features that may not be obvious:</p>
           
-          <ul>
+          <ul class="long">
             <li>Static Height. The height of the element containing the slides is set automatically. This prevents the rest of the page from jumping around as the user views slides of different heights.</li>
             <li>Decent documentation. At least, I think it's decent. If you find something hard to understand please <a href="mailto:daniel@flyingmachinestudios.com">email me</a> and let me know.</li>
+            <li><a href="#" class="slide-toggle">Ability to toggle presentation.</a> This is a little buggy right now, but the idea is to allow people to display all the slides on a page at the same time.</li>
+            <li>"Easy" slide navigaion. If you uncomment the line that reads "slideContainer.click(clickMove)" in jquery.electric-slide.js, you will be able to go to the previous/next slide by clicking in the left and right halves of the slide area. "Easy" is in quotes because this isn't really intuitive.</li>
           </ul>
                     
         </div>
     
         <div class="slide">
-          <h3>Features</h3>
+          <h3>Get Started</h3>
           <p></p>
         </div>
     

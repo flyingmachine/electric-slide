@@ -1,4 +1,3 @@
 * Come up with a better default example... yeesh!
 * allow users to provide their own function for generating the toc
 * href for slide header navigatoin
-* get slideContext worked out correctly

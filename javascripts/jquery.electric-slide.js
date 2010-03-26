@@ -261,22 +261,23 @@ $.fn.electricSlide = function(options){
     /***
      * Alter elements - create an electric slide! Yeah!
      */
-     var electricSlide = {
-        slides            : slides,
-        settings          : settings,
-        expandAll         : expandAll,
-        collapseAll       : collapseAll,
-        resetDimensions   : resetDimensions,
-        showSlide         : showSlide,
-        showNextSlide     : showNextSlide,
-        showPreviousSlide : showPreviousSlide
-      };
+    var electricSlide = {
+      slides            : slides,
+      settings          : settings,
+      expandAll         : expandAll,
+      collapseAll       : collapseAll,
+      resetDimensions   : resetDimensions,
+      showSlide         : showSlide,
+      showNextSlide     : showNextSlide,
+      showPreviousSlide : showPreviousSlide
+    };
      
-     this.electricSlide = electricSlide;
+    this.electricSlide = electricSlide;
+    
     // setup slides
     slides.each(function(i){
-      // insert an anchor
-      
+
+      // insert an anchor  
       if(settings.shouldInsertHeader) insertHeader(i, this);
       findMaxHeight(this);
 
@@ -295,14 +296,14 @@ $.fn.electricSlide = function(options){
       this.didHide       = settings.slideDidHide;
     })
     
-    // generate the TOC
-    if(settings.buildToc) generateToc();
-    activateCurrentTocLine();
-    
     // setup dimensions - needs to happen after slides are set up
     // to account for navigation being inserted
     setSlideContainerHeight();
     $(window).resize(resetDimensions)
+    
+    // generate the TOC
+    if(settings.buildToc) generateToc();
+    activateCurrentTocLine();
     
     // Let's turn this off for now - it's a bit unintuitive
     // slideContainer.click(clickMove)

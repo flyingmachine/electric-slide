@@ -1,11 +1,3 @@
-/*
-Some of these styles taken from
-http://github.com/nakajima/slidedown/blob/master/templates/stylesheets/slides.css
-*/
-#slides {
-  text-align: left;
-}
- 
 /* 
   Very weird: for some reason when jquery is computing heights
   it doesn't correctly accommodate the height of the interior p element
@@ -13,10 +5,6 @@ http://github.com/nakajima/slidedown/blob/master/templates/stylesheets/slides.cs
 */
 .slide {
   display:none;
-}
-
-.show {
-  display:block;
 }
 
 .clear-slide-header {
