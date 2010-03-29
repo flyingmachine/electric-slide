@@ -20,7 +20,9 @@ $.fn.electricSlide = function(options){
 
     // header/navigation
     shouldInsertHeader   : true,
+    shouldInsertFooter   : true,
     slideHeaderClass     : "slide-header",
+    slideFooterClass     : "slide-footer",
     titleSelector        : "h3",
     // "next/previous" text is replaced with title if there is one
     // href is replaced with "#slide-i", where i is slide's position
@@ -50,6 +52,7 @@ $.fn.electricSlide = function(options){
   $.extend(settings, options)
   settings.slideSelector = "." + settings.slideClass
   settings.slideHeaderSelector = "." + settings.slideHeaderClass
+  settings.slideFooterSelector = "." + settings.slideFooterClass
   
   this.each(function(){
     var slideContainerElem   = this;
@@ -195,29 +198,43 @@ $.fn.electricSlide = function(options){
     /***
      * Navigation HTML functions
      */
-    function insertHeader(i, slideElem){
-      var header = $("<div class='" + settings.slideHeaderClass + "'><div class='clear-slide-header'></div></div>'");
-      var j;
+    function insertNavigation(slidePosition, slideElem){
+      var header = $("<div><div class='clear-slide-header'></div></div>'");
+      var titleIndex;
       
       // TODO clean this confusing mess up
       // don't show next/previous if there is no next/previous
-      if(i < maxSlidePosition()) {
-        j = i + 1;
+      if(slidePosition < maxSlidePosition()) {
+        titleIndex = slidePosition + 1;
         var nextElement = $(settings.nextHtml)
-        if(titles[j]) nextElement.text((j + 1) + ". " + $(titles[j]).text()) // replace link text with title of next slide
-        nextElement.click(showNextSlide)
+        if(titles[titleIndex]) {
+          nextElement.text((titleIndex + 1) + ". " + $(titles[titleIndex]).text()) // replace link text with title of next slide
+        }
         header.prepend(nextElement);
       }
       
-      if(i > 0) {
-        j = i - 1;
+      if(slidePosition > 0) {
+        titleIndex = slidePosition - 1;
         var previousElement = $(settings.previousHtml)
-        if(titles[j]) previousElement.text((j + 1) + ". " + $(titles[j]).text()) // replace link text with title of prev slide
-        previousElement.click(showPreviousSlide)
+        if(titles[titleIndex]) {
+          previousElement.text((titleIndex + 1) + ". " + $(titles[titleIndex]).text()) // replace link text with title of prev slide
+        }
         header.prepend(previousElement)
       }
-
-      $(slideElem).prepend(header)
+      
+      if(settings.shouldInsertFooter) {
+        var footer = header.clone();
+        footer.addClass(settings.slideFooterClass)
+        $(slideElem).append(footer)
+      }
+      
+      if(settings.shouldInsertHeader) {
+        header.addClass(settings.slideHeaderClass)
+        $(slideElem).prepend(header)
+      }
+      
+      $(".slide-navigation.next", slideElem).click(showNextSlide)
+      $(".slide-navigation.previous", slideElem).click(showPreviousSlide)
     }
     
     // TODO allow users to provide their own function for generating the toc
@@ -245,13 +262,13 @@ $.fn.electricSlide = function(options){
      */
     function expandAll() {
       slides.show()
-      slides.children(settings.slideHeaderSelector).hide()
+      slides.children(settings.slideHeaderSelector + "," + settings.slideFooterSelector).hide()
       slideContainer.animate({height:$(".track", slideContainer).height()})
       return false;
     }
     
     function collapseAll() {
-      slides.children(settings.slideHeaderSelector, slideContainer).show()
+      slides.children(settings.slideHeaderSelector + "," + settings.slideFooterSelector).show()
       slides.hide()
       $(slides[0]).show()
       resetDimensions(400)
@@ -278,7 +295,7 @@ $.fn.electricSlide = function(options){
     slides.each(function(i){
 
       // insert an anchor  
-      if(settings.shouldInsertHeader) insertHeader(i, this);
+      if(settings.shouldInsertHeader || settings.shouldInsertFooter) insertNavigation(i, this);
       findMaxHeight(this);
 
       if(i == 0) {

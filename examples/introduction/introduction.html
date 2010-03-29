@@ -34,7 +34,9 @@
       });
        
       $("#code-path-slides").electricSlide({
-        slideClass: "code-path-slide", buildToc:false
+        slideClass: "code-path-slide",
+        buildToc:false,
+        shouldInsertFooter: false
       })
       $("#slides")[0].electricSlide.resetDimensions();
     })
