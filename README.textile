@@ -17,13 +17,14 @@ h2. Get code
 
 h2. Examples
 
-Need examples...
+* Check out the examples directory!
+* The introduction in examples/introduction/introduction.html is a good place to start.
 
 h2. Usage
 
+  $("#slide-container").electricSlide();
+  
 Need to mention...
 
 * CSS assumptions
 * What happens when you call the electricSlide function
-
-  $("#slide-container").electricSlide();
